@@ -9,18 +9,19 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class AgentConfigProvider implements Provider<AgentConfig> {
 
-	private static final String BASE = "src/main/resources/tutor/";
+	private static final String SRC = "src/main/resources/%s.yaml";
 
-	private final String name;
+	private final String fragment;
 
-	public AgentConfigProvider(String name) {
-		this.name = name;
+	public AgentConfigProvider(String fragment) {
+		this.fragment = fragment;
 	}
 
 	@Override
 	public AgentConfig get() {
 		try {
-			File file = new File(BASE + name);
+			String path = String.format(SRC, fragment);
+			File file = new File(path);
 			return readYaml(file);
 		} catch (Throwable e) {
 			throw new RuntimeException(e);

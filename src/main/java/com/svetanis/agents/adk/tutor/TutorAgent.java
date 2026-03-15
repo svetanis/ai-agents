@@ -10,10 +10,10 @@ import com.svetanis.agents.adk.SearchAgentProvider;
 
 public class TutorAgent implements Provider<LlmAgent> {
 
-	private static final String ROOT = "root_tutor_agent.yaml";
-	private static final String CODE = "code_tutor_agent.yaml";
-	private static final String MATH = "math_tutor_agent.yaml";
-	private static final String SCIENCE = "science_tutor_agent.yaml";
+	private static final String ROOT = "tutor/root_tutor_agent";
+	private static final String CODE = "tutor/code_tutor_agent";
+	private static final String MATH = "tutor/math_tutor_agent";
+	private static final String SCIENCE = "tutor/science_tutor_agent";
 
 	@Override
 	public LlmAgent get() {
