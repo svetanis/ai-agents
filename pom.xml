@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <adk.version>0.8.0</adk.version>
+        <adk.version>0.9.0</adk.version>
         <!-- Specify the version of Java you'll be using -->
 		<project.java.version>23.0.2</project.java.version>
         <maven.compiler.source>17</maven.compiler.source>

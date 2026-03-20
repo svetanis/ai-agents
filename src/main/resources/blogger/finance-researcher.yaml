@@ -1,0 +1,12 @@
+name: FinanceResearcher
+model: gemini-2.5-flash
+description: An agent that searches and dives into financial topics
+instruction: |
+ Research the current fintech trends.
+ Include 3 key trends, their market
+ implications, and the future outlook.
+ Use the `google-search-agent` tool to
+ search up-to-date and relevant information 
+ on the given topic and present the findings with citations.
+ Keep the report concise (100 words).
+outputKey: finance_research

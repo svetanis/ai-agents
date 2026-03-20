@@ -1,0 +1,10 @@
+name: WriterAgent
+model: gemini-2.5-flash
+description: |
+ An agent that writes the full blog post
+ based on the outline from the previous agent
+instruction: |
+ Following this outline strictly: {summary_outline}
+ write a brief, 300-word blog post with
+ an engaging and informative tone.
+outputKey: blog_draft
