@@ -1,4 +1,6 @@
-# Blogger Module
+# Blogger Agent Module
+
+> **Inspired by:** [Google's 5 Days of AI Course](https://www.kaggle.com/code/kaggle5daysofai/day-1b-agent-architectures) - Multi-agent orchestration patterns adapted to Java + Google ADK
 
 ## Overview
 
