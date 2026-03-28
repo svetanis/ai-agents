@@ -15,6 +15,8 @@ import com.svetanis.agents.adk.LlmAgentProvider;
 
 public class ResearchTeam implements Provider<ParallelAgent> {
 
+	private static final String DESC = "The ParallelAgent runs all its sub-agents simultaneously";
+
 	private static final String TRA = "blogger/tech-researcher";
 	private static final String HRA = "blogger/health-researcher";
 	private static final String FRA = "blogger/finance-researcher";
@@ -22,9 +24,11 @@ public class ResearchTeam implements Provider<ParallelAgent> {
 	@Override
 	public ParallelAgent get() {
 		GoogleSearchTool gst = new GoogleSearchTool();
+		List<LlmAgent> subAgents = subAgents(gst);
 		return ParallelAgent.builder()//
 				.name("ResearchTeam")//
-				.subAgents(subAgents(gst))//
+				.description(DESC)//
+				.subAgents(subAgents)//
 				.build();
 	}
 

@@ -8,5 +8,5 @@ instruction: |
  Use the `google-search-agent` tool to
  search up-to-date and relevant information 
  on the given topic and present the findings with citations.
- Keep the report concise (100 words).
+ Keep the report concise (50 words).
 outputKey: finance_research

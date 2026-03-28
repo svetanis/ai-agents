@@ -13,6 +13,12 @@ public class BloggerRootAgent implements Provider<LlmAgent> {
 
 	private static final String BRA = "blogger/root-agent";
 
+	private final boolean refine;
+
+	public BloggerRootAgent(boolean refine) {
+		this.refine = refine;
+	}
+
 	@Override
 	public LlmAgent get() {
 		AgentContext ctx = ctx(BRA);
@@ -21,7 +27,7 @@ public class BloggerRootAgent implements Provider<LlmAgent> {
 
 	private AgentContext ctx(String fragment) {
 		AgentConfig config = new AgentConfigProvider(fragment).get();
-		AgentTool pipeline = AgentTool.create(new BlogPipeline().get());
+		AgentTool pipeline = AgentTool.create(new BlogPipeline(refine).get());
 		return AgentContext.builder()//
 				.withConfig(config)//
 				.withTools(pipeline)//

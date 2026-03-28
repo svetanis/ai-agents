@@ -4,9 +4,9 @@ description: |
  An agent that edits and polishes 
  the draft from the writer agent
 instruction: |
- Edit this draft: {blog_draft}
+ Edit this draft: {current_document}
  Your task is to polish the text by fixing
  any grammatical errors, improving the flow
  and sentence structure, and enhancing
  overall clarity.
-outputKey: final_blog
+outputKey: current_document
