@@ -3,6 +3,9 @@ package com.svetanis.agents.currency;
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.web.AdkWebServer;
 
+// Inspired by 5-Day AI Agents Intensive Course with Google
+// https://www.kaggle.com/code/kaggle5daysofai/day-2a-agent-tools
+
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.currency.CurrencyApp
 
 // Suggested PROMPTs: 
