@@ -1,15 +1,20 @@
-# 🤖 AI Agents Framework
+# ADK Agents
 
-A powerful, modular, and extensible framework for building **Autonomous AI Agents** using **Java** and **Google's Agent Development Kit (ADK)**. This repository provides production-ready agent implementations that can be easily extended and deployed.
+## What the project does
 
-## 🎯 Overview
+This repository, `adk-agents`, showcases a collection of diverse Artificial Intelligence (AI) agents built using the Agent Development Kit (ADK). The project provides practical examples of how to design, configure, and run intelligent agents for various tasks, demonstrating the power and flexibility of the ADK framework. This project specifically leverages **Google's Gemini models** through the ADK and integrates with **GitHub Copilot** for development assistance.
 
-This framework enables you to create sophisticated autonomous agents capable of:
-- **Planning & reasoning** through complex multi-step tasks
-- **Tool integration** with external APIs, web search, and local resources
-- **Multi-agent collaboration** with specialized role-based agents
-- **Human-in-the-loop workflows** with optional approval checkpoints
-- **Self-correction** and error recovery capabilities
+Each agent in this repository is designed to address a specific problem domain, offering insights into multi-agent systems, tool integration, and prompt engineering within the ADK ecosystem, with a focus on the Google AI platform.
+
+## Why the project is useful
+
+`adk-agents` serves as an invaluable resource for developers looking to:
+
+*   **Learn ADK**: Understand the core concepts and implementation patterns of the Agent Development Kit through concrete, runnable examples, particularly with Google's AI models.
+*   **Build Custom Agents**: Get a head start on developing their own AI agents by adapting existing examples, specifically tailored for Gemini.
+*   **Explore Agent Capabilities**: See how different agents can collaborate or function independently to achieve complex goals using the ADK and Google Gemini.
+*   **Rapid Prototyping**: Quickly set up and experiment with various agent configurations using declarative YAML definitions.
+*   **Leverage Google AI**: Understand how to integrate and utilize Google Gemini models effectively within agent-based applications.
 
 ## ⚙️ Technology Stack
 
@@ -18,430 +23,131 @@ This framework enables you to create sophisticated autonomous agents capable of:
 - **LLM:** Gemini 2.5 Flash
 - **Configuration:** YAML-based agent definitions
 - **Execution:** Sequential and Parallel agent orchestration
-- **Tools:** Google Search, Web APIs, Custom extensions
+- **Tools:** Google Search, Web APIs, Custom extensions, MCP Toolset
 
-## 📚 Agent Modules
+## Key features include:
 
-Each agent module is built using **Java + Google ADK** and includes:
-- Java implementation with dependency injection
-- YAML configuration files for agent behavior
-- Web server interface via ADK Web Server
-- Specialized tools and integrations
+*   **Modular Agent Design**: Each agent is independently structured, making it easy to understand, modify, and extend.
+*   **Declarative Configuration**: Agents are configured using YAML files, defining their roles, goals, and the tools they can utilize.
+*   **Diverse Agent Examples**:
+    *   **Blogger Agent**: A sophisticated multi-agent system capable of researching topics, generating blog post drafts, refining content, and publishing.
+    *   **Currency Agent**: An agent designed for currency conversion and calculations, demonstrating tool use for external data fetching.
+    *   **GitHub Readme Agent**: An agent that can analyze a GitHub repository and generate a comprehensive `README.md` file (meta-!).
+    *   **Tutor Agent**: An interactive educational agent capable of providing tutoring in various subjects.
+*   **Java-based Implementation**: Leverages the robust Java ecosystem for building scalable and performant agent applications.
+*   **Google Gemini Integration**: All agents are configured to work seamlessly with Google Gemini as the underlying Large Language Model.
 
-### 🎓 [Tutor Agent](https://github.com/svetanis/ai-agents/tree/master/src/main/java/com/svetanis/agents/adk/tutor)
+## How users can get started
 
-An intelligent **multi-domain tutoring system** that provides personalized educational guidance.
-
-**Use Cases:**
-- High school and undergraduate student support
-- Programming, Math, and Science tutoring
-- Guided learning and problem-solving assistance
-- Self-correcting homework help
-
-**Key Features:**
-- **3 Specialized Tutors:**
-  - 🔤 **Code Tutor (NullPointer)** - Programming concepts via guided learning
-  - 📐 **Math Tutor (Sigma)** - Mathematical problem-solving with Socratic method
-  - 🔬 **Science Tutor (Atom)** - Physics & Chemistry with knowledge-level adaptation
-
-- **Pedagogical Approach:**
-  - Guided learning over direct answers
-  - Socratic questioning for critical thinking
-  - Chunked explanations with analogies
-  - Progressive hint escalation
-
-**Technology:**
-```
-Java: TutorAgent.java (orchestrator) + TutorApp.java (entry point)
-Config: root_tutor_agent.yaml, code_tutor_agent.yaml, math_tutor_agent.yaml, science_tutor_agent.yaml
-LLM: Gemini 2.5 Flash
-Tools: Google Search
-```
-
-**Quick Start:**
-```bash
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp
-# Access at: http://localhost:8080
-```
-
-[📖 Full Tutor Agent Documentation](https://github.com/svetanis/ai-agents/tree/master/src/main/java/com/svetanis/agents/adk/tutor)
-
----
-
-### 📝 [Blogger Agent](https://github.com/svetanis/ai-agents/tree/master/src/main/java/com/svetanis/agents/adk/blogger)
-
-> **Inspired by:** [Google's 5 Days of AI Course](https://www.kaggle.com/code/kaggle5daysofai/day-1b-agent-architectures) - Multi-agent orchestration patterns adapted to Java + Google ADK
-
-A **multi-stage content generation pipeline** that produces polished, researched blog posts.
-
-**Use Cases:**
-- Automated blog post generation
-- Executive briefings and summaries
-- Research aggregation across multiple domains
-- Content creation for multiple topics simultaneously
-- Demonstration of agentic AI patterns
-
-**Key Features:**
-- **4-Stage Pipeline:**
-  1. 🔍 **Parallel Research** (Tech, Health, Finance)
-  2. 📊 **Aggregation** - Synthesize findings into outline
-  3. ✍️ **Writing** - Generate engaging content
-  4. ✏️ **Editing** - Polish and refine output
-
-- **Research Capabilities:**
-  - Real-time Google Search integration
-  - Multi-domain expertise (Tech, Health, Finance)
-  - Parallel concurrent research execution
-  - Citation and source tracking
-
-- **Output Quality:**
-  - ~300 word structured blog posts
-  - Common theme identification
-  - Professional writing standards
-  - Grammatically polished content
-
-**Google's 5 Days of AI Concepts Implemented:**
-- ✅ **Multi-agent systems** - Specialized agents working together
-- ✅ **Agentic workflows** - Sequential + parallel orchestration
-- ✅ **Tool use** - Google Search integration
-- ✅ **Prompt engineering** - YAML-based behavioral instructions
-- ✅ **LLM reasoning** - Multi-step problem solving
-
-**Technology:**
-```
-Java: BlogPipeline.java (orchestrator), BloggerRootAgent.java, BloggerApp.java
-Config: root-agent.yaml, aggregator-agent.yaml, writer-agent.yaml, editor-agent.yaml
-        tech-researcher.yaml, health-researcher.yaml, finance-researcher.yaml
-LLM: Gemini 2.5 Flash
-Tools: Google Search, Parallel/Sequential Agents
-```
-
-**Quick Start:**
-```bash
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp
-# Prompt: "Run the daily executive briefing on Tech, Health, and Finance"
-```
-
-[📖 Full Blogger Agent Documentation](https://github.com/svetanis/ai-agents/tree/master/src/main/java/com/svetanis/agents/adk/blogger)
-
----
-
-## 🏗️ Architecture Overview
-
-### Core Framework Components
-
-The framework provides several foundational components used by all agents:
-
-```
-src/main/java/com/svetanis/agents/adk/
-├── AgentConfig.java           - Configuration data structure
-├── AgentConfigProvider.java    - YAML configuration loader
-├── AgentContext.java           - Execution context with tools
-├── LlmAgentProvider.java       - LLM agent instantiation
-├── blogger/                    - Blogger agent implementation
-└── tutor/                      - Tutor agent implementation
-```
-
-### Agent Execution Flow
-
-```
-┌─────────────────────────────────────────────────────┐
-│         User Input / API Request                    │
-└────────────────────┬────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│  App.java (Entry Point)                             │
-│  ├─ Initializes Agent                              │
-│  └─ Starts ADK Web Server                          │
-└────────────────────┬────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│  Agent.java (Root Agent Implementation)             │
-│  ├─ Loads configuration from YAML                  │
-│  ├─ Initializes tools & sub-agents                 │
-│  └─ Executes LLM reasoning                         │
-└────────────────────┬────────────────────────────────┘
-                     │
-        ┌────────────┴────────────┬──────────────┐
-        │                         │              │
-        ▼                         ▼              ▼
-   ┌─────────────┐        ┌──────────────┐  ┌──────────┐
-   │ Sub-Agent 1 │        │ Sub-Agent 2  │  │ Tool 1   │
-   │ (via YAML)  │        │ (via YAML)   │  │ (Search) │
-   └─────────────┘        └──────────────┘  └──────────┘
-        │                         │
-        └────────────┬────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│  Final Output / Response                            │
-└─────────────────────────────────────────────────────┘
-```
-
-## 🛠️ Advanced Agent Patterns Supported
-
-### 1. **Multi-Agent Teams**
-Assign specialized tasks to a group of agents with different roles:
-- **Blogger:** Research team + Aggregator + Writer + Editor
-- **Tutor:** Specialized tutors for Code/Math/Science
-
-### 2. **Sequential Orchestration**
-Agents execute in order, passing outputs as inputs:
-```
-Research → Aggregation → Writing → Editing
-```
-
-### 3. **Parallel Execution**
-Multiple agents work simultaneously for efficiency:
-```
-Tech Researcher ─┐
-Health Researcher├─→ Aggregator
-Finance Researcher─┘
-```
-
-### 4. **Delegation Pattern**
-Root agent routes requests to appropriate specialists:
-```
-Root Tutor Agent
-├─→ Code Tutor (for programming questions)
-├─→ Math Tutor (for math questions)
-└─→ Science Tutor (for science questions)
-```
-
-### 5. **Tool Integration**
-Agents extend capabilities through tools:
-- Google Search for real-time information
-- Custom tools for domain-specific operations
-- Sub-agents wrapped as tools for composition
-
-### 6. **Self-Correction**
-Agents can reflect on output and retry:
-- Editor refines writer output
-- Socratic feedback for incorrect student answers
-- Hint escalation for stuck learners
-
-### 7. **Human-in-the-Loop**
-Optional checkpoints for human approval (extensible pattern)
-
-## 📦 Configuration-Driven Design
-
-All agent behaviors are externalized to **YAML configuration files**:
-
-```yaml
-name: example_agent
-model: gemini-2.5-flash
-description: Agent description
-instruction: |
-  Detailed behavioral instructions
-  - Role and persona
-  - Mission and goals
-  - Specific guidelines
-  - Rules and constraints
-outputKey: agent_output_variable
-```
-
-**Benefits:**
-- ✅ No code changes needed to modify agent behavior
-- ✅ Easy version control of agent configurations
-- ✅ Deploy multiple agent variants instantly
-- ✅ Non-technical stakeholders can modify behavior
-- ✅ Rapid experimentation and iteration
-
-## 🔧 Getting Started
+To get started with the `adk-agents` project, follow these steps:
 
 ### Prerequisites
-- Java 11+
-- Maven 3.6+
-- Google Cloud credentials (for Gemini API)
+
+*   **Java Development Kit (JDK) 17 or higher**: Ensure you have a compatible JDK installed.
+*   **Apache Maven 3.6.3 or higher**: Maven is used for building and managing the project.
+*   **Google AI Studio / Gemini API Key**: All agents require access to Google Gemini. You will need to set up an environment variable for your Google API key: `GOOGLE_API_KEY`. Refer to the specific agent's `README.md` for exact environment variable names if different.
 
 ### Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/svetanis/ai-agents.git
-cd ai-agents
+1.  **Clone the repository**:
+    ```
+bash
+git clone https://github.com/svetanis/adk-agents.git
+cd adk-agents
 
-# Build the project
+
+2.  **Build the project**:
+    Navigate to the project root directory and build the project using Maven:
+    ```
+bash
 mvn clean install
 
-# Run a specific agent
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp
-# or
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp
-```
+    This command compiles the Java code, runs tests, and packages the agents.
 
-### Environment Setup
+### Usage Examples
 
-Set up your Google Cloud credentials:
+Each agent can be run independently. Below are examples for running each agent. Before running, ensure your `GOOGLE_API_KEY` environment variable is set correctly.
 
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/credentials.json
-```
+#### Blogger Agent
 
-## 🚀 Creating New Agents
+The Blogger Agent is a multi-agent system that helps in generating blog posts.
 
-To create a new agent using this framework:
+To run the Blogger Agent:
+bash
 
-1. **Create Java Structure:**
-   ```java
-   public class MyAgent implements Provider<LlmAgent> {
-       @Override
-       public LlmAgent get() {
-           AgentContext ctx = ctx("my-agent");
-           return new LlmAgentProvider(ctx).get();
-       }
-       
-       private AgentContext ctx(String fragment) {
-           AgentConfig config = new AgentConfigProvider(fragment).get();
-           return AgentContext.builder()
-                   .withConfig(config)
-                   .withTools(/* your tools */)
-                   .build();
-       }
-   }
-   ```
+Example: Set your Google API key (replace with your actual key)
+export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
-2. **Create YAML Configuration:**
-   ```yaml
-   name: my_agent
-   model: gemini-2.5-flash
-   description: Your agent description
-   instruction: |
-     Your detailed instructions...
-   ```
+Run the Blogger Application
+mvn exec:java -Dexec.mainClass="com.svetanis.agents.blogger.BloggerApp"
 
-3. **Create Entry Point:**
-   ```java
-   public class MyApp {
-       public static void main(String[] args) {
-           LlmAgent agent = new MyAgent().get();
-           AdkWebServer.start(agent);
-       }
-   }
-   ```
 
-## 📊 Comparison Matrix
+For more detailed instructions and agent configuration, refer to the [Blogger Agent's README](src/main/java/com/svetanis/agents/blogger/README.md).
 
-| Feature | Tutor | Blogger |
-|---------|-------|---------|
-| **Purpose** | Educational guidance | Content generation |
-| **Inspiration** | Custom design | Google's 5 Days of AI |
-| **Sub-agents** | 3 specialized tutors | 3 researchers + aggregator/writer/editor |
-| **Orchestration** | Delegation routing | Sequential pipeline |
-| **Parallelization** | Sequential | Parallel research |
-| **Tools** | Google Search | Google Search |
-| **Output Type** | Guided learning | Polished blog post |
-| **Domain Coverage** | Code/Math/Science | Tech/Health/Finance |
+#### Currency Agent
 
-## 📈 Framework Capabilities
+The Currency Agent provides currency conversion functionalities.
 
-### Agent Features
-- ✅ LLM-powered reasoning with Gemini 2.5 Flash
-- ✅ Tool integration and extension
-- ✅ Multi-agent composition and orchestration
-- ✅ Sequential and parallel execution patterns
-- ✅ YAML-based configuration management
-- ✅ Web API interface via ADK Web Server
-- ✅ Dependency injection via Provider pattern
-- ✅ Google Search integration for real-time data
+To run the Currency Agent:
+bash
 
-### Development Features
-- ✅ Java-based implementation (type-safe)
-- ✅ Clean, extensible architecture
-- ✅ Modular component design
-- ✅ Production-ready code patterns
-- ✅ Easy testing and debugging
-- ✅ Maven build system
-- ✅ Clear separation of concerns
+Example: Set your Google API key (replace with your actual key)
+export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
-## 🔐 Security Considerations
+Run the Currency Application
+mvn exec:java -Dexec.mainClass="com.svetanis.agents.currency.CurrencyApp"
 
-- API credentials managed via environment variables
-- YAML configurations should not contain secrets
-- Web server can be containerized and deployed securely
-- Google Cloud IAM for credential management
-- Input validation for user-provided prompts
 
-## 🧪 Testing & Development
+#### GitHub Readme Agent
 
-Each agent module can be tested independently:
+This agent can generate a `README.md` file for a given GitHub repository.
 
-```bash
-# Test Tutor Agent
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp
+To run the GitHub Readme Agent:
+bash
 
-# Test Blogger Agent
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp
-```
+Example: Set your Google API key (replace with your actual key)
+export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
-## 📝 Project Structure
+Run the GitHub Application
+mvn exec:java -Dexec.mainClass="com.svetanis.agents.github.GithubApp"
 
-```
-ai-agents/
-├── README.md                                    (This file)
-├── pom.xml                                     (Maven configuration)
-├── src/main/java/com/svetanis/agents/adk/
-│   ├── AgentConfig.java                        (Configuration model)
-│   ├── AgentConfigProvider.java                (YAML loader)
-│   ├── AgentContext.java                       (Execution context)
-│   ├── LlmAgentProvider.java                   (Agent factory)
-│   ├── blogger/                                (Blogger agent)
-│   │   ├── BloggerApp.java
-│   │   ├── BloggerRootAgent.java
-│   │   ├── BlogPipeline.java
-│   │   ├── ResearchTeam.java
-│   │   └── README.md
-│   └── tutor/                                  (Tutor agent)
-│       ├── TutorApp.java
-│       ├── TutorAgent.java
-│       └── README.md
-└── src/main/resources/
-    ├── blogger/                                (Blogger configurations)
-    │   ├── root-agent.yaml
-    │   ├── aggregator-agent.yaml
-    │   ├── writer-agent.yaml
-    │   ├── editor-agent.yaml
-    │   ├── tech-researcher.yaml
-    │   ├── health-researcher.yaml
-    │   ├── finance-researcher.yaml
-    │   └── search-agent.yaml
-    └── tutor/                                  (Tutor configurations)
-        ├── root_tutor_agent.yaml
-        ├── code_tutor_agent.yaml
-        ├── math_tutor_agent.yaml
-        └── science_tutor_agent.yaml
-```
 
-## 🎓 Learning Resources
+#### Tutor Agent
 
-- **Google ADK Documentation:** [Official Docs](https://ai.google.dev/adk)
-- **Gemini API:** [API Reference](https://ai.google.dev/api)
-- **Google's 5 Days of AI:** [Course Link](https://ai.google.dev/learn)
-- **Agent Patterns:** See individual agent READMEs for detailed documentation
+The Tutor Agent helps users learn various subjects.
 
-## 🤝 Contributing
+To run the Tutor Agent:
+bash
 
-To contribute new agents or improvements:
+Example: Set your Google API key (replace with your actual key)
+export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
-1. Follow the established Java + Google ADK patterns
-2. Create YAML configurations for behavior
-3. Include comprehensive README documentation
-4. Test thoroughly before submitting
-5. Add your agent to this main README
+Run the Tutor Application
+mvn exec:java -Dexec.mainClass="com.svetanis.agents.tutor.TutorApp"
 
-## 📄 License
 
-This project is provided as-is for educational and development purposes.
+For more detailed instructions and agent configuration, refer to the [Tutor Agent's README](src/main/java/com/svetanis/agents/tutor/README.md).
 
-## 🎯 Next Steps
+## Where users can get help
 
-- **Explore Tutor Agent:** [View Implementation](src/main/java/com/svetanis/agents/adk/tutor)
-- **Explore Blogger Agent:** [View Implementation](src/main/java/com/svetanis/agents/adk/blogger) (based on Google's 5 Days of AI)
-- **Create Your Own:** Use the patterns and structure to build specialized agents
-- **Extend & Deploy:** Customize agents for your specific use cases
+For assistance with `adk-agents`, consider the following resources:
 
----
+*   **ADK Documentation**: For general information and guides on the Agent Development Kit, refer to the [official ADK documentation](https://github.com/Azure/adk).
+*   **Google AI Studio Documentation**: For specific details on using Google Gemini models, refer to the [Google AI Studio documentation](https://ai.google.dev/).
+*   **GitHub Issues**: If you encounter any issues, have questions, or want to suggest new features, please open an issue on the [GitHub Issues page](https://github.com/svetanis/adk-agents/issues).
 
-**Built with Java + Google Agent Development Kit (ADK)** 🚀
+## Who maintains and contributes
+
+### Maintainer
+
+*   **svetanis** ([@svetanis](https://github.com/svetanis))
+
+### Contributing
+
+We welcome contributions to the `adk-agents` project! If you're interested in contributing, please consider:
+
+*   Forking the repository.
+*   Creating a new branch for your features or bug fixes.
+*   Submitting a pull request with a clear description of your changes.
+
+For more detailed contribution guidelines, please refer to a future `CONTRIBUTING.md` file.
