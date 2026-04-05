@@ -6,7 +6,7 @@ import com.google.adk.web.AdkWebServer;
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.devtools.DevToolsApp
 
 // Suggested PROMPTs: 
-// Please review and improve README.md file for {repository} and write it to a file in default location.
+// Please review and improve README.md file for {repository}.
 
 public class DevToolsApp {
 
