@@ -1,0 +1,32 @@
+User: Can you tell me about the iPhone 15 Pro? Is it in stock?
+
+Response:
+The iPhone 15 Pro is available for $999. 
+It currently has low stock with 8 units remaining. 
+It features 128GB storage and a titanium finish.
+
+---
+User: Here's a comparison of the Dell XPS 15 and MacBook Pro 14:
+
+Response:
+Dell XPS 15:
+
+Price: $1,299
+Availability: In Stock (45 units)
+Specs: 15.6" display, 16GB RAM, 512GB SSD
+MacBook Pro 14:
+
+Price: $1,999
+Availability: In Stock (22 units)
+Specs: M3 Pro chip, 18GB RAM, 512GB SSD
+The Dell XPS 15 is more affordable and has a slightly larger display, 
+while the MacBook Pro 14 features a more powerful M3 Pro chip and 18GB of RAM. 
+Both have 512GB SSDs.
+
+---
+User: Do you have the Sony WH-1000XM5 headphones? What's the price?
+
+Response:
+Yes, we have the Sony WH-1000XM5 headphones. 
+They are priced at $399 and are in stock with 67 units. 
+They feature noise-canceling and have a 30-hour battery life.
