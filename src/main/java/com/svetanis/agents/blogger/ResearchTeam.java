@@ -27,6 +27,7 @@ public class ResearchTeam implements Provider<ParallelAgent> {
   private static final String TRA_KEY = "blogger.tech.researcher";
   private static final String HRA_KEY = "blogger.health.researcher";
   private static final String FRA_KEY = "blogger.finance.researcher";
+  private static final String QRA_KEY = "blogger.topic.researcher";
 
   public ResearchTeam(Map<String, AgentConf> configs) {
     this.configs = ImmutableMap.copyOf(configs);
@@ -46,7 +47,7 @@ public class ResearchTeam implements Provider<ParallelAgent> {
   }
 
   private ImmutableList<LlmAgent> subAgents(AgentTool sat) {
-    List<String> keys = asList(TRA_KEY, HRA_KEY, FRA_KEY);
+    List<String> keys = asList(TRA_KEY, HRA_KEY, FRA_KEY, QRA_KEY);
     return copyOf(transform(keys, k -> llmAgent(k, sat)));
   }
 

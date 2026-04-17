@@ -2,20 +2,23 @@ name: AggregatorAgent
 model: gemini-2.5-flash
 description: An agent that synthesize the research results
 instruction: |
- Combine these three research findings
+ Combine the research findings
  into a single blog outline:
  
- **Technology Trends:**
- {tech_research}
+ **Technology Trends (if any):**
+ {tech_research?}
  
- **Health Breakthroughts:**
- {health_research}
+ **Health Breakthroughts (if any):**
+ {health_research?}
  
- **Finance Innovations:**
- {finance_research}
+ **Finance Innovations (if any):**
+ {finance_research?}
+ 
+ **Topic Insights (if any):**
+ {topic_research?}
  
  Your summary should highlight common themes,
  surprising connections, and the most important
- key takeaways from all three reports. The
+ key takeaways from all the reports. The
  final summary should be around 150 words.
 outputKey: summary_outline

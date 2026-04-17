@@ -8,7 +8,9 @@ import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.blogger.BloggerApp
 
-// Run the daily executive briefing on Tech, Health, and Finance
+// Run the daily executive briefing on Tech, Health, and Finance and write a blog post
+// Write a blog post about artificial intelligence
+// Create a blog post about self-driving vehicles
 
 public final class BloggerApp {
 

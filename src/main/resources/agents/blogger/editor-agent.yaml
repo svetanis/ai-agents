@@ -1,12 +1,20 @@
 name: EditorAgent
 model: gemini-2.5-flash
 description: |
- An agent that edits and polishes 
- the draft from the writer agent
+ An agent that reviews blog post
+ draft and provides editorial feedback
 instruction: |
- Edit this draft: {current_document}
- Your task is to polish the text by fixing
- any grammatical errors, improving the flow
- and sentence structure, and enhancing
- overall clarity.
-outputKey: current_document
+ You are an experienced editor.
+ Review the blog post draft below
+ and provide constructive feedback.
+ Draft Blog Post: {current_document}
+ 
+ Your task is to analyze the text for
+ any grammatical errors, the flow
+ and sentence structure, and overall clarity.
+ 
+ Provide your feedback as a short list of
+ specific improvements. If the post is excellent,
+ simply say: 'APPROVED".
+ Output ONLY the feedback, nothing else.
+outputKey: editorial_feedback
