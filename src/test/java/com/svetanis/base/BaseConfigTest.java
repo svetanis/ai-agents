@@ -10,10 +10,6 @@ class BaseConfigTest {
 
   @Test
   void test() throws ConfigurationException {
-
     BaseAgent ba = ConfigAgentUtils.fromConfig("src/main/resources/agents/tool/search-agent.yaml");
-    System.out.println(ba);
-    
   }
-
 }

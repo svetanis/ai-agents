@@ -21,17 +21,16 @@ public class AgentConfigsProviderTest {
   public void test() throws IOException {
     AgentConfigsProvider provider = new AgentConfigsProvider();
     Map<String, AgentConf> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
-    System.out.println(map.size());
     for (String key : map.keySet()) {
       AgentConf config = map.get(key);
       LlmAgent.IncludeContents ic = includeContents(config);
-      System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic);      
+      // System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic);
     }
   }
-  
+
   private LlmAgent.IncludeContents includeContents(AgentConf config) {
     Optional<String> incl = config.getIncludeContents();
-    if (incl.isPresent() ) {
+    if (incl.isPresent()) {
       String trimmed = CharMatcher.whitespace().trimFrom(incl.get()).toUpperCase();
       return valueOf(trimmed);
     }
