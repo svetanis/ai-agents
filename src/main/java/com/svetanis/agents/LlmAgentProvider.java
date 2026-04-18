@@ -1,11 +1,11 @@
 package com.svetanis.agents;
 
 import static com.google.adk.agents.LlmAgent.IncludeContents.DEFAULT;
-import static com.google.adk.agents.LlmAgent.IncludeContents.NONE;
 import static com.google.adk.agents.LlmAgent.IncludeContents.valueOf;
 import static com.google.api.client.util.Preconditions.checkNotNull;
 
 import com.google.adk.agents.LlmAgent;
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
 
 import jakarta.inject.Provider;
@@ -41,8 +41,9 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
 
   private LlmAgent.IncludeContents includeContents(AgentConf config) {
     Optional<String> incl = config.getIncludeContents();
-    if (incl.isPresent() && valueOf(incl.get().toUpperCase()) == NONE) {
-      return NONE;
+    if (incl.isPresent()) {
+      String trimmed = CharMatcher.whitespace().trimFrom(incl.get());
+      return valueOf(trimmed.toUpperCase());
     }
     return DEFAULT;
   }

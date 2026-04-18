@@ -15,4 +15,3 @@ instruction: |
  Output a bulleted list of 3-4 key facts 
  or insights about the topic with citations.
 outputKey: topic_research
-includeContents: NONE

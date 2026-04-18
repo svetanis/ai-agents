@@ -10,4 +10,3 @@ instruction: |
  an engaging and informative tone.
  Output ONLY the blog post text, no meta-commentary.
 outputKey: current_document
-includeContents: NONE

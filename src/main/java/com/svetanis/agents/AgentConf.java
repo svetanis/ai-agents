@@ -69,7 +69,7 @@ public final class AgentConf {
 
   @JsonProperty
   public void setIncludeContents(String outputKey) {
-    setOutputKey(Optional.fromNullable(outputKey));
+    setIncludeContents(Optional.fromNullable(outputKey));
   }
 
   public void setIncludeContents(Optional<String> includeContents) {

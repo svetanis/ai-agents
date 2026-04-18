@@ -26,4 +26,5 @@ instruction: |
  - Organize activities into a day-to-day plan
  - Include estimated total cost
  - Add helpful travel tips
+ Do not show intermediate steps. Only output the final itinerary 
 outputKey: final_itinerary

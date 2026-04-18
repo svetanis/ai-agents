@@ -25,5 +25,6 @@ instruction: |
  - Activity name
  - Description (1 sentence)
  - Estimated cost
+ Do not show intermediate steps and final answer. 
+ Save the final answer to outputKey for the `DiningAgent` and `ItineraryAgent`. 
 outputKey: activity_options
-includeContents: NONE

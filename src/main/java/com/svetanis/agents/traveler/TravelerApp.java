@@ -8,7 +8,6 @@ import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.traveler.TravelerApp
 
-
 public class TravelerApp {
 
   public static void main(String[] args) throws Exception {

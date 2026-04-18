@@ -17,12 +17,17 @@ instruction: |
  Use the `google_maps` tool to find dining places 
  that are near by the day's activities and fit in
  the overall travel style and budget. 
- 
+
+ **Recommended Activities:**
+ {activity_options} 
+
+  
  ## OutputFormat:
  Provide 2-3 places as a bulleted list 
  (sorted by price in ascending order) with
  - name
  - location
  - link to google maps
+ Do not show intermediate steps and final answer. 
+ Save the final answer to outputKey for the `ItineraryAgent`. 
 outputKey: dining_suggestions
-includeContents: NONE

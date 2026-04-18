@@ -10,6 +10,7 @@ instruction: |
  provide flight options based on user input
  
  ## Input
+ - Departure
  - Destination
  - Travel dates
  - Number of passengers (adults, children)
@@ -31,4 +32,3 @@ instruction: |
  - Price range
  - Flight duration
 outputKey: flight_options
-includeContents: NONE

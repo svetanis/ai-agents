@@ -31,13 +31,12 @@ public class RootAgent implements Provider<SequentialAgent> {
   @Override
   public SequentialAgent get() {
     Map<String, AgentConf> configs = provider.get();
-    LlmAgent itinerary = new LlmAgentProvider(configs.get(KEY)).get();
     ParallelAgent team = new SearchTeam(configs).get();
+    LlmAgent itinerary = new LlmAgentProvider(configs.get(KEY)).get();
     return SequentialAgent.builder() //
         .name("TravelPlanner") //
         .description(DESC) //
         .subAgents(team, itinerary) //
         .build();
   }
-
 }

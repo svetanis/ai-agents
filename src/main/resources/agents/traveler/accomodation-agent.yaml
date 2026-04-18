@@ -16,8 +16,7 @@ instruction: |
   
  ## Task:
  Use the `google_maps` tool to find hotels 
- that are near by the day's activities and
- fit in the overall travel style and budget. 
+ that fit in the overall travel style and budget. 
  
  ## OutputFormat:
  Provide 2-3 options as a bulleted list 
@@ -27,5 +26,6 @@ instruction: |
  - Price per night
  - Key amenities 
  - Link to google maps
+ Do not show intermediate steps and final answer. 
+ Save the final answer to outputKey for the `ItineraryAgent`. 
 outputKey: accomodation_options
-includeContents: NONE

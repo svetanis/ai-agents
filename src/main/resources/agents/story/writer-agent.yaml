@@ -9,4 +9,3 @@ instruction: |
  on the topic requested by the user 
  with an engaging and informative tone.
 outputKey: current_document
-includeContents: NONE
