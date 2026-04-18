@@ -21,7 +21,6 @@ public class AgentConfigsProviderTest {
   public void test() throws IOException {
     AgentConfigsProvider provider = new AgentConfigsProvider();
     Map<String, AgentConf> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
-    
     System.out.println(map.size());
     for (String key : map.keySet()) {
       AgentConf config = map.get(key);
