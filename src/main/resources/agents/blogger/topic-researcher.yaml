@@ -6,7 +6,7 @@ instruction: |
  Your task is to gather key facts 
  about the topic requested by the user.
  
- Use the `GoogleSearchAgent` tool to
+ Use the `google_search` tool to
  search up-to-date and relevant information 
  on the given topic.  Focus on interesting, 
  specific information that would make 

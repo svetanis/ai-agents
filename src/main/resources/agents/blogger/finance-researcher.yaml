@@ -5,7 +5,7 @@ instruction: |
  Research the current fintech trends.
  Include 3 key trends, their market
  implications, and the future outlook.
- Use the `google-search-agent` tool to
+ Use the `google_search` tool to
  search up-to-date and relevant information 
  on the given topic and present the findings with citations.
  Keep the report concise (50 words).

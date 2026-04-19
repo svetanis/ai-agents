@@ -8,5 +8,5 @@ instruction: |
  strictly: {summary_outline} write a first 
  brief draft, 150-word blog post with
  an engaging and informative tone.
- Output ONLY the blog post text, no meta-commentary.
+ Output ONLY the blog post text.
 outputKey: current_document

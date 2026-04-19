@@ -5,7 +5,7 @@ instruction: |
  Research recent medical breakthroughs.
  Include 3 significant advances, their 
  practical applications, and estimated timelines.
- Use the `google-search-agent` tool to
+ Use the `google_search` tool to
  search up-to-date and relevant information 
  on the given topic and present the findings with citations.
  Keep the report concise (50 words).
