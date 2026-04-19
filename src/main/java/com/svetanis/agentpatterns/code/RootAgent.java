@@ -15,7 +15,7 @@ import com.google.adk.tools.BaseTool;
 import com.google.adk.tools.ExitLoopTool;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 import com.svetanis.agentpatterns.base.tools.CodeExecutionToolProvider;
@@ -30,15 +30,15 @@ public class RootAgent implements Provider<SequentialAgent> {
   private static final String CRA_KEY = "code.review.agent";
   private static final String CFA_KEY = "code.refactor.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
+  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final Provider<ImmutableMap<String, AgentConf>> provider;
+  private final Provider<ImmutableMap<String, AgentConfig>> provider;
 
   @Override
   public SequentialAgent get() {
-    Map<String, AgentConf> configs = provider.get();
+    Map<String, AgentConfig> configs = provider.get();
     List<BaseAgent> subAgents = subAgents(configs);
     return SequentialAgent.builder() //
         .name("CodeWorkflow") //
@@ -47,19 +47,19 @@ public class RootAgent implements Provider<SequentialAgent> {
         .build();
   }
 
-  private ImmutableList<BaseAgent> subAgents(Map<String, AgentConf> configs) {
+  private ImmutableList<BaseAgent> subAgents(Map<String, AgentConfig> configs) {
     List<String> keys = asList(CWA_KEY, CRA_KEY, CFA_KEY);
     AgentTool tool = new CodeExecutionToolProvider(configs).get();
     return copyOf(transform(keys, k -> subAgent(configs.get(k), tool)));
   }
 
-  private BaseAgent subAgent(AgentConf config, AgentTool tool) {
+  private BaseAgent subAgent(AgentConfig config, AgentTool tool) {
     List<BaseTool> tools = asList(tool, ExitLoopTool.INSTANCE);
     AgentContext ctx = agentCtx(config, tools);
     return new LlmAgentProvider(ctx).get();
   }
 
-  private AgentContext agentCtx(AgentConf config, List<BaseTool> tools) {
+  private AgentContext agentCtx(AgentConfig config, List<BaseTool> tools) {
     return AgentContext.builder() //
         .withConfig(config) //
         .withTools(tools) //

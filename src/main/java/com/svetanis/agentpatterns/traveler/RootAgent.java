@@ -8,7 +8,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.ParallelAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
@@ -22,15 +22,15 @@ public class RootAgent implements Provider<SequentialAgent> {
       """;
   private static final String KEY = "traveler.itinerary.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
+  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
     this.provider = checkNotNull(provider);
   }
 
-  private final Provider<ImmutableMap<String, AgentConf>> provider;
+  private final Provider<ImmutableMap<String, AgentConfig>> provider;
 
   @Override
   public SequentialAgent get() {
-    Map<String, AgentConf> configs = provider.get();
+    Map<String, AgentConfig> configs = provider.get();
     ParallelAgent team = new SearchTeam(configs).get();
     LlmAgent itinerary = new LlmAgentProvider(configs.get(KEY)).get();
     return SequentialAgent.builder() //

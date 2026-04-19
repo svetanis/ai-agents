@@ -12,7 +12,7 @@ import com.google.adk.agents.SequentialAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 import com.svetanis.agentpatterns.base.tools.MapsAgentToolProvider;
@@ -32,11 +32,11 @@ public class SearchTeam implements Provider<ParallelAgent> {
   private static final String TAA_KEY = "traveler.activity.agent";
   private static final String TDA_KEY = "traveler.dining.agent";
 
-  public SearchTeam(Map<String, AgentConf> configs) {
+  public SearchTeam(Map<String, AgentConfig> configs) {
     this.configs = copyOf(configs);
   }
 
-  private final ImmutableMap<String, AgentConf> configs;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public ParallelAgent get() {
@@ -62,7 +62,7 @@ public class SearchTeam implements Provider<ParallelAgent> {
   }
 
   private LlmAgent llmAgent(String key, List<BaseTool> tools) {
-    AgentConf config = configs.get(key);
+    AgentConfig config = configs.get(key);
     AgentContext ctx = AgentContext.builder()//
         .withConfig(config)//
         .withTools(tools)//

@@ -13,15 +13,15 @@ import com.google.common.collect.ImmutableList;
 
 public final class AgentContext {
 
-  private final AgentConf config;
+  private final AgentConfig config;
   private final ImmutableList<BaseTool> tools;
   private final ImmutableList<BaseAgent> subAgents;
 
-  public static AgentContext build(AgentConf config) {
+  public static AgentContext build(AgentConfig config) {
     return builder().withConfig(config).build();
   }
 
-  public static AgentContext build(AgentConf config, BaseTool base) {
+  public static AgentContext build(AgentConfig config, BaseTool base) {
     return builder().withConfig(config).withTools(base).build();
   }
 
@@ -37,11 +37,11 @@ public final class AgentContext {
 
   public static class Builder {
 
-    private AgentConf config;
+    private AgentConfig config;
     private List<BaseTool> tools = new ArrayList<>();
     private List<BaseAgent> subAgents = new ArrayList<>();
 
-    public final Builder withConfig(AgentConf config) {
+    public final Builder withConfig(AgentConfig config) {
       this.config = config;
       return this;
     }
@@ -70,7 +70,7 @@ public final class AgentContext {
     }
   }
 
-  public AgentConf getConfig() {
+  public AgentConfig getConfig() {
     return config;
   }
 

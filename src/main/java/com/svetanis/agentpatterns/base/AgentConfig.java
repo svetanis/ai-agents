@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
 
-@JsonDeserialize(builder = AgentConf.Builder.class)
-public final class AgentConf {
+@JsonDeserialize(builder = AgentConfig.Builder.class)
+public final class AgentConfig {
 
   private final String name;
   private final String model;
@@ -20,7 +20,7 @@ public final class AgentConf {
   private final Optional<String> outputKey;
   private final Optional<String> includeContents;
 
-  private AgentConf(Builder builder) {
+  private AgentConfig(Builder builder) {
     this.name = builder.name;
     this.model = builder.model;
     this.description = builder.description;
@@ -128,11 +128,11 @@ public final class AgentConf {
       this.includeContents = includeContents;
     }
 
-    public AgentConf build() {
-      return validate(new AgentConf(this));
+    public AgentConfig build() {
+      return validate(new AgentConfig(this));
     }
 
-    private static AgentConf validate(AgentConf instance) {
+    private static AgentConfig validate(AgentConfig instance) {
       checkNotNull(instance.name);
       checkNotNull(instance.model);
       checkNotNull(instance.description);

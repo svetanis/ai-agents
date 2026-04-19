@@ -8,7 +8,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BuiltInCodeExecutionTool;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
@@ -18,11 +18,11 @@ public class CodeExecutionToolProvider implements Provider<AgentTool> {
 
   private static final String KEY = "tool.code.execution";
 
-  public CodeExecutionToolProvider(Map<String, AgentConf> configs) {
+  public CodeExecutionToolProvider(Map<String, AgentConfig> configs) {
     this.configs = copyOf(configs);
   }
 
-  private final ImmutableMap<String, AgentConf> configs;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public AgentTool get() {

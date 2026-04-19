@@ -13,7 +13,7 @@ import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 import com.svetanis.agentpatterns.base.tools.SearchAgentToolProvider;
@@ -29,11 +29,11 @@ public class ResearchTeam implements Provider<ParallelAgent> {
   private static final String FRA_KEY = "blogger.finance.researcher";
   private static final String QRA_KEY = "blogger.topic.researcher";
 
-  public ResearchTeam(Map<String, AgentConf> configs) {
+  public ResearchTeam(Map<String, AgentConfig> configs) {
     this.configs = ImmutableMap.copyOf(configs);
   }
 
-  private final ImmutableMap<String, AgentConf> configs;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public ParallelAgent get() {

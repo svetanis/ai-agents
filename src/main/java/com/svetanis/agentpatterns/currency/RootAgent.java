@@ -10,7 +10,7 @@ import com.google.adk.tools.BuiltInCodeExecutionTool;
 import com.google.adk.tools.FunctionTool;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
@@ -21,11 +21,11 @@ public class RootAgent implements Provider<LlmAgent> {
   private static final String CRA_KEY = "currency.root.agent";
   private static final String CCA_KEY = "currency.calculator.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
+  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final Provider<ImmutableMap<String, AgentConf>> provider;
+  private final Provider<ImmutableMap<String, AgentConfig>> provider;
 
   @Override
   public LlmAgent get() {
@@ -33,11 +33,11 @@ public class RootAgent implements Provider<LlmAgent> {
     return new LlmAgentProvider(ctx).get();
   }
 
-  private AgentContext agentContext(Map<String, AgentConf> configs) {
+  private AgentContext agentContext(Map<String, AgentConfig> configs) {
     FunctionTool pmf = FunctionTool.create(CurrencyTools.class, "paymentMethodFee");
     FunctionTool exr = FunctionTool.create(CurrencyTools.class, "exchangeRate");
     AgentTool cat = AgentTool.create(calculatorAgent(configs));
-    AgentConf config = configs.get(CRA_KEY);
+    AgentConfig config = configs.get(CRA_KEY);
     return AgentContext//
         .builder()//
         .withConfig(config)//
@@ -45,8 +45,8 @@ public class RootAgent implements Provider<LlmAgent> {
         .build();
   }
 
-  private LlmAgent calculatorAgent(Map<String, AgentConf> configs) {
-    AgentConf config = configs.get(CCA_KEY);
+  private LlmAgent calculatorAgent(Map<String, AgentConfig> configs) {
+    AgentConfig config = configs.get(CCA_KEY);
     AgentContext ctx = AgentContext//
         .builder()//
         .withConfig(config)//

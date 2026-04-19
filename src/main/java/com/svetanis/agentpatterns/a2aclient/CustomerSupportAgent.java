@@ -8,7 +8,7 @@ import java.util.Map;
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
@@ -18,11 +18,11 @@ public class CustomerSupportAgent implements Provider<LlmAgent> {
 
   private static final String CSA_KEY = "a2aclient.customer.support.agent";
 
-  public CustomerSupportAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
+  public CustomerSupportAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final Provider<ImmutableMap<String, AgentConf>> provider;
+  private final Provider<ImmutableMap<String, AgentConfig>> provider;
 
   @Override
   public LlmAgent get() {
@@ -30,9 +30,9 @@ public class CustomerSupportAgent implements Provider<LlmAgent> {
     return new LlmAgentProvider(ctx).get();
   }
 
-  private AgentContext agentContext(Map<String, AgentConf> configs) {
+  private AgentContext agentContext(Map<String, AgentConfig> configs) {
     BaseAgent pca = new RemoteProductCatalogAgent().get();
-    AgentConf config = configs.get(CSA_KEY);
+    AgentConfig config = configs.get(CSA_KEY);
     return AgentContext//
         .builder()//
         .withConfig(config)//

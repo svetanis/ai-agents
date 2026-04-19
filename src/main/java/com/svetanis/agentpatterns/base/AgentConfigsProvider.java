@@ -25,7 +25,7 @@ import com.svetanis.agentpatterns.base.serialize.YamlSerializer;
 
 import jakarta.inject.Provider;
 
-public class AgentConfigsProvider implements Provider<ImmutableMap<String, AgentConf>> {
+public class AgentConfigsProvider implements Provider<ImmutableMap<String, AgentConfig>> {
 
   private static final String BASE = "src/main/resources";
   private static final String SRC = "/agents";
@@ -42,14 +42,14 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   private final YamlSerializer yaml;
 
   @Override
-  public ImmutableMap<String, AgentConf> get() {
+  public ImmutableMap<String, AgentConfig> get() {
     try {
       String root = BASE + SRC;
       Map<String, ByteSource> resources = resources(root);
-      Map<String, AgentConf> map = new HashMap<>();
+      Map<String, AgentConfig> map = new HashMap<>();
       for (String key : resources.keySet()) {
         ByteSource bytes = resources.get(key);
-        AgentConf config = yaml.read(bytes, AgentConf.class);
+        AgentConfig config = yaml.read(bytes, AgentConfig.class);
         map.put(normalize(key, SRC), config);
       }
       return copyOf(map);

@@ -12,7 +12,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.AgentConfigsProvider;
 
 public class AgentConfigsProviderTest {
@@ -20,16 +20,16 @@ public class AgentConfigsProviderTest {
   @Test
   public void test() throws IOException {
     AgentConfigsProvider provider = new AgentConfigsProvider();
-    Map<String, AgentConf> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
+    Map<String, AgentConfig> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
     for (String key : map.keySet()) {
-      AgentConf config = map.get(key);
+      AgentConfig config = map.get(key);
       LlmAgent.IncludeContents ic = includeContents(config);
       // System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic);
       System.out.println(config);
     }
   }
 
-  private LlmAgent.IncludeContents includeContents(AgentConf config) {
+  private LlmAgent.IncludeContents includeContents(AgentConfig config) {
     Optional<String> incl = config.getIncludeContents();
     if (incl.isPresent()) {
       String trimmed = CharMatcher.whitespace().trimFrom(incl.get()).toUpperCase();

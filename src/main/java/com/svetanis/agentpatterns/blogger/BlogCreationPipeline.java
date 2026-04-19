@@ -8,7 +8,7 @@ import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.svetanis.agentpatterns.base.AgentConf;
+import com.svetanis.agentpatterns.base.AgentConfig;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
@@ -24,11 +24,11 @@ public class BlogCreationPipeline implements Provider<SequentialAgent> {
   private static final String BEA_KEY = "blogger.editor.agent";
   private static final String BFA_KEY = "blogger.formatter.agent";
 
-  public BlogCreationPipeline(Map<String, AgentConf> configs) {
+  public BlogCreationPipeline(Map<String, AgentConfig> configs) {
     this.configs = ImmutableMap.copyOf(configs);
   }
 
-  private final ImmutableMap<String, AgentConf> configs;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public SequentialAgent get() {

@@ -12,7 +12,7 @@ import jakarta.inject.Provider;
 
 public class LlmAgentProvider implements Provider<LlmAgent> {
 
-  public LlmAgentProvider(AgentConf config) {
+  public LlmAgentProvider(AgentConfig config) {
     this(AgentContext.build(config));
   }
 
@@ -24,7 +24,7 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
 
   @Override
   public LlmAgent get() {
-    AgentConf config = ctx.getConfig();
+    AgentConfig config = ctx.getConfig();
     LlmAgent.Builder builder = LlmAgent.builder();
     builder.name(config.getName());
     builder.description(config.getDescription());
@@ -39,7 +39,7 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     return builder.build();
   }
 
-  private LlmAgent.IncludeContents includeContents(AgentConf config) {
+  private LlmAgent.IncludeContents includeContents(AgentConfig config) {
     Optional<String> incl = config.getIncludeContents();
     if (incl.isPresent()) {
       String trimmed = CharMatcher.whitespace().trimFrom(incl.get());
