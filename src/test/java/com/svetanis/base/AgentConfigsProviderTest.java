@@ -12,8 +12,8 @@ import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
-import com.svetanis.agentpatterns.base.AgentConfig;
-import com.svetanis.agentpatterns.base.AgentConfigsProvider;
+import com.svetanis.multiagentpatterns.base.AgentConfig;
+import com.svetanis.multiagentpatterns.base.AgentConfigsProvider;
 
 public class AgentConfigsProviderTest {
 
