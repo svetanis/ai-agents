@@ -38,7 +38,7 @@ public class RefinementLoop implements Provider<LoopAgent> {
     return LoopAgent.builder().name("RefinementLoop") //
         .description(DESC) //
         .subAgents(critic, refiner) //
-        .maxIterations(2) //
+        .maxIterations(3) //
         .build();
   }
 }
