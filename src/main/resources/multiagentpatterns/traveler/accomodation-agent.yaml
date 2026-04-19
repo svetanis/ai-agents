@@ -17,6 +17,13 @@ instruction: |
  Use the `google_maps` tool to find hotels 
  that fit in the overall travel style and budget. 
  
+ Your job is ONLY search for available accomodations
+ and provide 2-3 top options
+ Do NOT book a hotel
+ 
+ If no hotels found, just say 
+ no availablity for requested dates
+ 
  **OUTPUT FORMAT:**
  Provide 2-3 options as a bulleted list 
  (sorted by price in ascending order) with
@@ -26,3 +33,4 @@ instruction: |
  - Key amenities 
  - Link to google maps
 outputKey: accomodation_options
+transferToAgent: ItineraryAgent

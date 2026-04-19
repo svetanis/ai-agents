@@ -28,3 +28,4 @@ instruction: |
  - location
  - link to google maps
 outputKey: dining_suggestions
+transferToAgent: ItineraryAgent

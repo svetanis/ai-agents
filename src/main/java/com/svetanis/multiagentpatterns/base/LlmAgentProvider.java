@@ -41,7 +41,6 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
         cc.eventActions().setTransferToAgent(name);
         return Maybe.empty();
       });
-
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());

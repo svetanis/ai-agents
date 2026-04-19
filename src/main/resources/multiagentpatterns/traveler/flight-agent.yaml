@@ -24,6 +24,13 @@ instruction: |
  Use the `google_search` tool to
  search for available flights
  
+ Your job is ONLY search for available flights
+ and provide 2-3 top options
+ Do NOT book a flight
+ 
+ If no flights found, just say 
+ no availablity for requested dates
+ 
  **OUTPUT FORMAT:**
  Provide 2-3 flight options as a bulleted list 
  (sorted by price in ascending order) with
@@ -32,3 +39,4 @@ instruction: |
  - Price range
  - Flight duration
 outputKey: flight_options
+transferToAgent: ItineraryAgent

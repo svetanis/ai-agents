@@ -6,7 +6,7 @@ import com.svetanis.multiagentpatterns.base.AgentConfigsProvider;
 
 import jakarta.inject.Provider;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.traveler.TravelerApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.traveler.TravelerApp
 
 public class TravelerApp {
 
