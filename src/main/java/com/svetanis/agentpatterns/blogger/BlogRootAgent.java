@@ -13,11 +13,11 @@ import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class RootAgent implements Provider<LlmAgent> {
+public class BlogRootAgent implements Provider<LlmAgent> {
 
   private static final String BRA_KEY = "blogger.root.agent";
 
-  public RootAgent(AgentConfigsProvider provider) {
+  public BlogRootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 

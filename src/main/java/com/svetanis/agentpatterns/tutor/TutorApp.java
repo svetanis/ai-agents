@@ -11,7 +11,7 @@ import jakarta.inject.Provider;
 public class TutorApp {
 
   public static void main(String[] agrs) {
-    Provider<LlmAgent> root = new TutorAgent(new AgentConfigsProvider());
+    Provider<LlmAgent> root = new TutorRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

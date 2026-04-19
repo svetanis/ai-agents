@@ -22,7 +22,7 @@ import com.svetanis.agentpatterns.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
-public class RootAgent implements Provider<SequentialAgent> {
+public class CodeRootAgent implements Provider<SequentialAgent> {
 
   private static final String DESC = "Code workflow pipeline";
 
@@ -30,7 +30,7 @@ public class RootAgent implements Provider<SequentialAgent> {
   private static final String CRA_KEY = "code.review.agent";
   private static final String CFA_KEY = "code.refactor.agent";
 
-  public RootAgent(AgentConfigsProvider configs) {
+  public CodeRootAgent(AgentConfigsProvider configs) {
     this.configs = checkNotNull(configs, "configs");
   }
 

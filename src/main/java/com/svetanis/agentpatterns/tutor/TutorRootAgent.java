@@ -20,14 +20,14 @@ import com.svetanis.agentpatterns.base.tools.SearchAgentToolProvider;
 
 import jakarta.inject.Provider;
 
-public class TutorAgent implements Provider<LlmAgent> {
+public class TutorRootAgent implements Provider<LlmAgent> {
 
   private static final String ROOT_KEY = "tutor.root.agent";
   private static final String CODE_KEY = "tutor.code.agent";
   private static final String MATH_KEY = "tutor.math.agent";
   private static final String SCNC_KEY = "tutor.science.agent";
 
-  public TutorAgent(AgentConfigsProvider provider) {
+  public TutorRootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 

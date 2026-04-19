@@ -11,7 +11,7 @@ import jakarta.inject.Provider;
 public class TravelerApp {
 
   public static void main(String[] args) throws Exception {
-    Provider<SequentialAgent> root = new RootAgent(new AgentConfigsProvider());
+    Provider<SequentialAgent> root = new TravelerRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

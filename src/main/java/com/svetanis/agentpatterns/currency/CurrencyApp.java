@@ -18,7 +18,7 @@ import jakarta.inject.Provider;
 public class CurrencyApp {
 
   public static void main(String[] args) throws Exception {
-    Provider<LlmAgent> agent = new RootAgent(new AgentConfigsProvider());
+    Provider<LlmAgent> agent = new CurrencyRootAgent(new AgentConfigsProvider());
     // Run your agent with the ADK Dev UI
     AdkWebServer.start(agent.get());
   }

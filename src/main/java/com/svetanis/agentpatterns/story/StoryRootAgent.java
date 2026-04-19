@@ -13,12 +13,12 @@ import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class RootAgent implements Provider<SequentialAgent> {
+public class StoryRootAgent implements Provider<SequentialAgent> {
 
   private static final String DESC = "Story writing and refinement system";
   private static final String SWA_KEY = "story.writer.agent";
 
-  public RootAgent(AgentConfigsProvider provider) {
+  public StoryRootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 

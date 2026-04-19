@@ -15,7 +15,7 @@ import jakarta.inject.Provider;
 public final class BloggerApp {
 
   public static void main(String[] agrs) {
-    Provider<LlmAgent> root = new RootAgent(new AgentConfigsProvider());
+    Provider<LlmAgent> root = new BlogRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

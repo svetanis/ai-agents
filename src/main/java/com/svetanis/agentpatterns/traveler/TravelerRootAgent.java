@@ -13,7 +13,7 @@ import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class RootAgent implements Provider<SequentialAgent> {
+public class TravelerRootAgent implements Provider<SequentialAgent> {
 
   private static final String DESC = """
       Travel planning system
@@ -22,7 +22,7 @@ public class RootAgent implements Provider<SequentialAgent> {
       """;
   private static final String KEY = "traveler.itinerary.agent";
 
-  public RootAgent(AgentConfigsProvider provider) {
+  public TravelerRootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider);
   }
 

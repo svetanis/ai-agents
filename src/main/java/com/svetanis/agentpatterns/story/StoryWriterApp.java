@@ -18,7 +18,7 @@ import jakarta.inject.Provider;
 public class StoryWriterApp {
 
   public static void main(String[] agrs) {
-    Provider<SequentialAgent> root = new RootAgent(new AgentConfigsProvider());
+    Provider<SequentialAgent> root = new StoryRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

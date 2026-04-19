@@ -16,12 +16,12 @@ import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class RootAgent implements Provider<LlmAgent> {
+public class CurrencyRootAgent implements Provider<LlmAgent> {
 
   private static final String CRA_KEY = "currency.root.agent";
   private static final String CCA_KEY = "currency.calculator.agent";
 
-  public RootAgent(AgentConfigsProvider configs) {
+  public CurrencyRootAgent(AgentConfigsProvider configs) {
     this.configs = checkNotNull(configs, "configs");
   }
 
