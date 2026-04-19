@@ -8,8 +8,8 @@ import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.report.ReportWriterApp
 
-// Write a report about artificial intelligence
-// Create a report about self-driving vehicles
+// Write a report on artificial intelligence
+// Create a report on self-driving vehicles
 
 public final class ReportWriterApp {
 
