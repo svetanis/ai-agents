@@ -14,8 +14,8 @@ import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
 import com.google.adk.tools.ExitLoopTool;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.svetanis.agentpatterns.base.AgentConfig;
+import com.svetanis.agentpatterns.base.AgentConfigsProvider;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 import com.svetanis.agentpatterns.base.tools.CodeExecutionToolProvider;
@@ -25,21 +25,20 @@ import jakarta.inject.Provider;
 public class RootAgent implements Provider<SequentialAgent> {
 
   private static final String DESC = "Code workflow pipeline";
-  
+
   private static final String CWA_KEY = "code.write.agent";
   private static final String CRA_KEY = "code.review.agent";
   private static final String CFA_KEY = "code.refactor.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
-    this.provider = checkNotNull(provider, "provider");
+  public RootAgent(AgentConfigsProvider configs) {
+    this.configs = checkNotNull(configs, "configs");
   }
 
-  private final Provider<ImmutableMap<String, AgentConfig>> provider;
+  private final AgentConfigsProvider configs;
 
   @Override
   public SequentialAgent get() {
-    Map<String, AgentConfig> configs = provider.get();
-    List<BaseAgent> subAgents = subAgents(configs);
+    List<BaseAgent> subAgents = subAgents(configs.get());
     return SequentialAgent.builder() //
         .name("CodeWorkflow") //
         .description(DESC) //

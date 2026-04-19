@@ -6,8 +6,8 @@ import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
-import com.google.common.collect.ImmutableMap;
 import com.svetanis.agentpatterns.base.AgentConfig;
+import com.svetanis.agentpatterns.base.AgentConfigsProvider;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
@@ -17,11 +17,11 @@ public class RootAgent implements Provider<LlmAgent> {
 
   private static final String BRA_KEY = "blogger.root.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
+  public RootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final Provider<ImmutableMap<String, AgentConfig>> provider;
+  private final AgentConfigsProvider provider;
 
   @Override
   public LlmAgent get() {

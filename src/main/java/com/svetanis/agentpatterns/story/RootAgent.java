@@ -7,8 +7,8 @@ import java.util.Map;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.LoopAgent;
 import com.google.adk.agents.SequentialAgent;
-import com.google.common.collect.ImmutableMap;
 import com.svetanis.agentpatterns.base.AgentConfig;
+import com.svetanis.agentpatterns.base.AgentConfigsProvider;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
@@ -18,11 +18,11 @@ public class RootAgent implements Provider<SequentialAgent> {
   private static final String DESC = "Story writing and refinement system";
   private static final String SWA_KEY = "story.writer.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
+  public RootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final Provider<ImmutableMap<String, AgentConfig>> provider;
+  private final AgentConfigsProvider provider;
 
   @Override
   public SequentialAgent get() {

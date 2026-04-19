@@ -9,8 +9,8 @@ import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BuiltInCodeExecutionTool;
 import com.google.adk.tools.FunctionTool;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.svetanis.agentpatterns.base.AgentConfig;
+import com.svetanis.agentpatterns.base.AgentConfigsProvider;
 import com.svetanis.agentpatterns.base.AgentContext;
 import com.svetanis.agentpatterns.base.LlmAgentProvider;
 
@@ -21,15 +21,15 @@ public class RootAgent implements Provider<LlmAgent> {
   private static final String CRA_KEY = "currency.root.agent";
   private static final String CCA_KEY = "currency.calculator.agent";
 
-  public RootAgent(Provider<ImmutableMap<String, AgentConfig>> provider) {
-    this.provider = checkNotNull(provider, "provider");
+  public RootAgent(AgentConfigsProvider configs) {
+    this.configs = checkNotNull(configs, "configs");
   }
 
-  private final Provider<ImmutableMap<String, AgentConfig>> provider;
+  private final AgentConfigsProvider configs;
 
   @Override
   public LlmAgent get() {
-    AgentContext ctx = agentContext(provider.get());
+    AgentContext ctx = agentContext(configs.get());
     return new LlmAgentProvider(ctx).get();
   }
 
