@@ -6,10 +6,17 @@ import com.svetanis.multiagentpatterns.base.AgentConfigsProvider;
 
 import jakarta.inject.Provider;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.report.ReportWriterApp
-
-// Write a report on artificial intelligence
-// Create a report on self-driving vehicles
+/*
+ * Hierarchical decomposition pattern (aka the russian doll)
+ * https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/
+ * 
+ * suggested prompts:
+ * Write a report on artificial intelligence
+ * Create a report on self-driving vehicles
+ * 
+ * run command:
+ * mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.report.ReportWriterApp
+ */
 
 public final class ReportWriterApp {
 
