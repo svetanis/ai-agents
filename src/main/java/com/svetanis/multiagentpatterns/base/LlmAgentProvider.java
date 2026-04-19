@@ -8,6 +8,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
 
+import io.reactivex.rxjava3.core.Maybe;
 import jakarta.inject.Provider;
 
 public class LlmAgentProvider implements Provider<LlmAgent> {
@@ -33,6 +34,14 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     builder.includeContents(includeContents(config));
     if (config.getOutputKey().isPresent()) {
       builder.outputKey(config.getOutputKey().get());
+    }
+    if (config.getTransferToAgent().isPresent()) {
+      String name = config.getTransferToAgent().get();
+      builder.afterAgentCallback(cc -> {
+        cc.eventActions().setTransferToAgent(name);
+        return Maybe.empty();
+      });
+
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());

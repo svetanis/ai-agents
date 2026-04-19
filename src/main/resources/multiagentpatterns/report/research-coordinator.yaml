@@ -13,12 +13,15 @@ instruction: |
  on a requested topic.
  
  **WORKFLOW:**
- 1. Delegate the search task to the TopicResearcher agent
-    Do not conduct research youself
- 2. Collect the search results {topic_research} 
-    and delegate the analysis task to the ContentAnalyst 
-    Do not conduct the analysis yourself
- 3. Collect the research summary outline {summary_outline}
-    and return it to the ReportWriterAgent. 
-    Do not create the report yourself 
-outputKey: summary_outline
+ 1. Do not conduct research youself
+    Use the `TopicResearcher` agent to find information 
+    about requested topic
+    
+ 2. Do not conduct the analysis yourself
+    Use the `ContentAnalyst` agent to craft a summary
+    about requested topic
+    
+ 3. Do not create the report yourself 
+    Collect the final summary outline 
+    and return it to the `ReportWriterAgent` 
+transferToAgent: ReportWriterAgent

@@ -19,6 +19,7 @@ public final class AgentConfig {
   private final String instruction;
   private final Optional<String> outputKey;
   private final Optional<String> includeContents;
+  private final Optional<String> transferToAgent;
 
   private AgentConfig(Builder builder) {
     this.name = builder.name;
@@ -27,6 +28,7 @@ public final class AgentConfig {
     this.instruction = builder.instruction;
     this.outputKey = builder.outputKey;
     this.includeContents = builder.includeContents;
+    this.transferToAgent = builder.transferToAgent;
   }
 
   public static class Builder {
@@ -36,6 +38,7 @@ public final class AgentConfig {
     private String instruction;
     private Optional<String> outputKey = absent();
     private Optional<String> includeContents = absent();
+    private Optional<String> transferToAgent = absent();
 
     public final Builder withName(String name) {
       this.name = name;
@@ -64,6 +67,11 @@ public final class AgentConfig {
 
     public final Builder withIncludeContents(Optional<String> includeContents) {
       this.includeContents = includeContents;
+      return this;
+    }
+
+    public final Builder withTransferToAgent(Optional<String> transferToAgent) {
+      this.transferToAgent = transferToAgent;
       return this;
     }
 
@@ -103,7 +111,7 @@ public final class AgentConfig {
       return outputKey;
     }
 
-   @JsonProperty
+    @JsonProperty
     public void setOutputKey(String outputKey) {
       setOutputKey(fromNullable(outputKey));
     }
@@ -123,6 +131,19 @@ public final class AgentConfig {
 
     public void setIncludeContents(Optional<String> includeContents) {
       this.includeContents = includeContents;
+    }
+
+    public Optional<String> getTransferToAgent() {
+      return transferToAgent;
+    }
+
+    @JsonProperty
+    public void setTransferToAgent(String transferToAgent) {
+      setTransferToAgent(fromNullable(transferToAgent));
+    }
+
+    public void setTransferToAgent(Optional<String> transferToAgent) {
+      this.transferToAgent = transferToAgent;
     }
 
     public AgentConfig build() {
@@ -162,7 +183,10 @@ public final class AgentConfig {
     return includeContents;
   }
 
-  
+  public Optional<String> getTransferToAgent() {
+    return transferToAgent;
+  }
+
   @Override
   public String toString() {
     ToStringHelper helper = toStringHelper(this);
@@ -172,6 +196,7 @@ public final class AgentConfig {
     helper.add("instruction", instruction);
     helper.add("outputKey", outputKey);
     helper.add("includeContents", includeContents);
+    helper.add("transferToAgent", transferToAgent);
     return helper.toString();
   }
 }

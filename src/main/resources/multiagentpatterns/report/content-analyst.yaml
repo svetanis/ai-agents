@@ -24,4 +24,4 @@ instruction: |
  - Use bullet points for key facts, and short
  thematic paragraphs for context
  - Extract 3-5 relevant keywords or tags at the end
-outputKey: summary_outline
+transferToAgent: ResearchCoordinatorAgent
