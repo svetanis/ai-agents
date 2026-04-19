@@ -17,10 +17,10 @@ import jakarta.inject.Provider;
 
 public class ReportRootAgent implements Provider<LlmAgent> {
 
-  private static final String RWA_KEY = "report.writer.agent";
+  private static final String RRW_KEY = "report.root.writer";
   private static final String RTR_KEY = "report.topic.researcher";
   private static final String RCA_KEY = "report.content.analyst";
-  private static final String RAA_KEY = "report.research.assistant";
+  private static final String RAA_KEY = "report.research.coordinator";
 
   public ReportRootAgent(AgentConfigsProvider provider) {
     this.provider = checkNotNull(provider, "provider");
@@ -32,7 +32,7 @@ public class ReportRootAgent implements Provider<LlmAgent> {
   public LlmAgent get() {
     Map<String, AgentConfig> configs = provider.get();
     AgentTool assistant = AgentTool.create(researchAssistant(configs));
-    AgentContext ctx = AgentContext.build(configs.get(RWA_KEY), assistant);
+    AgentContext ctx = AgentContext.build(configs.get(RRW_KEY), assistant);
     return new LlmAgentProvider(ctx).get();
   }
 

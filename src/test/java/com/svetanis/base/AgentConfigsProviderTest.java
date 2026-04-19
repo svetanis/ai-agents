@@ -20,12 +20,12 @@ public class AgentConfigsProviderTest {
   @Test
   public void test() throws IOException {
     AgentConfigsProvider provider = new AgentConfigsProvider();
-    Map<String, AgentConfig> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
+    Map<String, AgentConfig> map = Maps.filterKeys(provider.get(), k -> k.startsWith("report"));
     for (String key : map.keySet()) {
       AgentConfig config = map.get(key);
       LlmAgent.IncludeContents ic = includeContents(config);
-      // System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic);
-      System.out.println(config);
+      System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic + "--" + config.getTransferToAgent().or(""));
+      //System.out.println(config);
     }
   }
 
