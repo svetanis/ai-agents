@@ -27,7 +27,6 @@ import jakarta.inject.Provider;
 
 public class AgentConfigsProvider implements Provider<ImmutableMap<String, AgentConf>> {
 
-  // TODO: create AppConfig and move to application properties
   private static final String BASE = "src/main/resources";
   private static final String SRC = "/agents";
   private static final String EXT = ".yaml";
