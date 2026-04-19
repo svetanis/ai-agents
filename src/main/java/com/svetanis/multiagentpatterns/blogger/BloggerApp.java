@@ -6,11 +6,10 @@ import com.svetanis.multiagentpatterns.base.AgentConfigsProvider;
 
 import jakarta.inject.Provider;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.blogger.BloggerApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.blogger.BloggerApp
 
-// Run the daily executive briefing on Tech, Health, and Finance and write a blog post
-// Write a blog post about artificial intelligence
-// Create a blog post about self-driving vehicles
+// Run the daily executive briefing on Tech, Health, and Finance 
+// and write a blog post about most recent trends 
 
 public final class BloggerApp {
 
