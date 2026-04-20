@@ -1,10 +1,7 @@
 package com.svetanis.agents.story;
 
-import com.google.adk.agents.SequentialAgent;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
-
-import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.story.StoryWriterApp
 
@@ -18,7 +15,7 @@ import jakarta.inject.Provider;
 public class StoryWriterApp {
 
   public static void main(String[] agrs) {
-    Provider<SequentialAgent> root = new StoryRootAgent(new AgentConfigsProvider());
+    StoryRootAgent root = new StoryRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

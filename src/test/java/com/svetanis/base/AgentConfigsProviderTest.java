@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
-import com.google.common.collect.Maps;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentConfigsProvider;
 
@@ -19,12 +18,12 @@ public class AgentConfigsProviderTest {
 
   @Test
   public void test() throws IOException {
-    AgentConfigsProvider provider = new AgentConfigsProvider();
-    Map<String, AgentConfig> map = Maps.filterKeys(provider.get(), k -> k.startsWith("traveler"));
+    AgentConfigsProvider provider = new AgentConfigsProvider("traveler");
+    Map<String, AgentConfig> map = provider.get();
     for (String key : map.keySet()) {
       AgentConfig config = map.get(key);
       LlmAgent.IncludeContents ic = includeContents(config);
-      // System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic + "--" + config.getTransferToAgent().or(""));
+      System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic + "--" + config.getTransferToAgent().or(""));
       //System.out.println(config);
     }
   }

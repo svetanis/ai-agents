@@ -1,10 +1,7 @@
 package com.svetanis.agents.blogger;
 
-import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
-
-import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.blogger.BloggerApp
 
@@ -14,7 +11,7 @@ import jakarta.inject.Provider;
 public final class BloggerApp {
 
   public static void main(String[] agrs) {
-    Provider<LlmAgent> root = new BlogRootAgent(new AgentConfigsProvider());
+    BlogRootAgent root = new BlogRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

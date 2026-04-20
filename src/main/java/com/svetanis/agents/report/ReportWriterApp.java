@@ -1,10 +1,7 @@
 package com.svetanis.agents.report;
 
-import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
-
-import jakarta.inject.Provider;
 
 /*
  * Hierarchical decomposition pattern (aka the russian doll)
@@ -21,7 +18,7 @@ import jakarta.inject.Provider;
 public final class ReportWriterApp {
 
   public static void main(String[] agrs) {
-    Provider<LlmAgent> root = new ReportRootAgent(new AgentConfigsProvider());
+    ReportRootAgent root = new ReportRootAgent(new AgentConfigsProvider());
     AdkWebServer.start(root.get());
   }
 }

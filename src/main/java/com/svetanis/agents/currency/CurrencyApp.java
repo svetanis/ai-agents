@@ -1,10 +1,7 @@
 package com.svetanis.agents.currency;
 
-import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
-
-import jakarta.inject.Provider;
 
 // Inspired by 5-Day AI Agents Intensive Course with Google
 // https://www.kaggle.com/code/kaggle5daysofai/day-2a-agent-tools
@@ -18,7 +15,7 @@ import jakarta.inject.Provider;
 public class CurrencyApp {
 
   public static void main(String[] args) throws Exception {
-    Provider<LlmAgent> agent = new CurrencyRootAgent(new AgentConfigsProvider());
+    CurrencyRootAgent agent = new CurrencyRootAgent(new AgentConfigsProvider());
     // Run your agent with the ADK Dev UI
     AdkWebServer.start(agent.get());
   }

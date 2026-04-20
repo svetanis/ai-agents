@@ -9,7 +9,7 @@ import com.svetanis.agents.story.StoryRootAgent;
 import com.svetanis.agents.traveler.TravelerRootAgent;
 import com.svetanis.agents.tutor.TutorRootAgent;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agentpatterns.AllAgentsApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.AllAgentsApp
 
 public class AllAgentsApp {
 

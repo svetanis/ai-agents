@@ -1,6 +1,8 @@
 package com.svetanis.agents.base;
 
 import static com.google.api.client.util.Preconditions.checkNotNull;
+import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.of;
 import static com.google.common.base.Predicates.and;
 import static com.google.common.collect.ImmutableMap.copyOf;
 import static com.google.common.collect.Lists.newArrayList;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteSource;
@@ -32,19 +35,27 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   private static final String EXT = ".yaml";
 
   public AgentConfigsProvider() {
-    this(new YamlSerializer());
+    this(new YamlSerializer(), absent());
   }
 
-  public AgentConfigsProvider(YamlSerializer yaml) {
+  public AgentConfigsProvider(String subdir) {
+    this(new YamlSerializer(), of(subdir));
+  }
+
+  public AgentConfigsProvider(YamlSerializer yaml, Optional<String> subdir) {
     this.yaml = checkNotNull(yaml, "yaml");
+    this.subdir = subdir;
+
   }
 
   private final YamlSerializer yaml;
+  private final Optional<String> subdir;
 
   @Override
   public ImmutableMap<String, AgentConfig> get() {
     try {
-      String root = BASE + SRC;
+      String root = rootPath(subdir);
+      System.out.println("root->" + root);
       Map<String, ByteSource> resources = resources(root);
       Map<String, AgentConfig> map = new HashMap<>();
       for (String key : resources.keySet()) {
@@ -57,6 +68,14 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
       e.printStackTrace();
       throw new IllegalStateException(e);
     }
+  }
+
+  private String rootPath(Optional<String> subdir) {
+    String root = BASE + SRC;
+    if (subdir.isPresent()) {
+      return root + "/" + subdir.get();
+    }
+    return root;
   }
 
   private ImmutableMap<String, ByteSource> resources(String dir) {
