@@ -40,7 +40,7 @@ public class CodeRootAgent implements Provider<SequentialAgent> {
   public SequentialAgent get() {
     List<? extends BaseAgent> subAgents = subAgents(configs.get());
     return SequentialAgent.builder() //
-        .name("CodeWorkflow") //
+        .name("CodePipeline") //
         .description(DESC) //
         .subAgents(subAgents) //
         .build();
