@@ -11,7 +11,9 @@ import jakarta.inject.Provider;
 public final class CodeWorkflowApp {
 
   public static void main(String[] agrs) {
-    Provider<SequentialAgent> root = new CodeRootAgent(new AgentConfigsProvider());
-    AdkWebServer.start(root.get());
+    AgentConfigsProvider configs = new AgentConfigsProvider();
+    Provider<SequentialAgent> single = new CodeRootAgent(configs);
+    Provider<SequentialAgent> refinement = new CodeRooWithRefinementAgent(configs);
+    AdkWebServer.start(single.get(), refinement.get());
   }
 }
