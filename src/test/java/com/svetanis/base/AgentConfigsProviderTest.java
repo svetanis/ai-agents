@@ -20,7 +20,7 @@ public class AgentConfigsProviderTest {
   @Test
   public void test() throws IOException {
    // GenerateContentConfig.builder().temperature(Double.valueOf(0.1).floatValue()).maxOutputTokens(2000).build();
-    AgentConfigsProvider provider = new AgentConfigsProvider("story");
+    AgentConfigsProvider provider = new AgentConfigsProvider();
     Map<String, AgentConfig> map = provider.get();
     for (String key : map.keySet()) {
       AgentConfig config = map.get(key);
