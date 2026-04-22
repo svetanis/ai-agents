@@ -16,16 +16,16 @@ import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
-public class RefinementLoop implements Provider<LoopAgent> {
+public class CodeRefinementLoop implements Provider<LoopAgent> {
 
-  private static final String CRA_KEY = "code.review.agent";
+  private static final String CAA_KEY = "code.analyse.agent";
   private static final String CFA_KEY = "code.refiner.agent";
 
   private static final String DESC = """
-      Improves code performance based on review comments or signals completion.
+      Improves code performance based on review feedback or signals completion.
       """;
 
-  public RefinementLoop(Map<String, AgentConfig> configs) {
+  public CodeRefinementLoop(Map<String, AgentConfig> configs) {
     this.configs = copyOf(configs);
   }
 
@@ -33,7 +33,7 @@ public class RefinementLoop implements Provider<LoopAgent> {
 
   @Override
   public LoopAgent get() {
-    LlmAgent review = new LlmAgentProvider(configs.get(CRA_KEY)).get();
+    LlmAgent review = new LlmAgentProvider(configs.get(CAA_KEY)).get();
     LlmAgent refiner = new LlmAgentProvider(agentCtx()).get();
     return LoopAgent.builder().name("RefinementLoop") //
         .description(DESC) //

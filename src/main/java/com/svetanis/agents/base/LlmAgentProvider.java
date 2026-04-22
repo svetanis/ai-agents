@@ -7,6 +7,7 @@ import static com.google.api.client.util.Preconditions.checkNotNull;
 import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
+import com.google.genai.types.GenerateContentConfig;
 
 import io.reactivex.rxjava3.core.Maybe;
 import jakarta.inject.Provider;
@@ -44,7 +45,15 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());
+    builder.generateContentConfig(contentConfig());
     return builder.build();
+  }
+
+  private GenerateContentConfig contentConfig() {
+    return GenerateContentConfig.builder()//
+        .temperature(Double.valueOf(0.1).floatValue())//
+        .maxOutputTokens(2000)//
+        .build();
   }
 
   private LlmAgent.IncludeContents includeContents(AgentConfig config) {

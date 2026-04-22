@@ -1,66 +1,44 @@
 package com.svetanis.agents.code;
 
 import static com.google.api.client.util.Preconditions.checkNotNull;
-import static com.google.common.collect.ImmutableList.copyOf;
-import static com.google.common.collect.Lists.transform;
-import static java.util.Arrays.asList;
 
-import java.util.List;
 import java.util.Map;
 
-import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
+import com.google.adk.agents.LoopAgent;
+import com.google.adk.agents.ParallelAgent;
 import com.google.adk.agents.SequentialAgent;
-import com.google.adk.tools.AgentTool;
-import com.google.adk.tools.BaseTool;
-import com.google.common.collect.ImmutableList;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
-import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
 public class CodeRootAgent implements Provider<SequentialAgent> {
 
-  private static final String DESC = "Code workflow pipeline";
+  private static final String DESC = "Code Polyglot System with refinement loop";
 
-  private static final String CWA_KEY = "code.write.agent";
-  private static final String CRA_KEY = "code.review.agent";
-  private static final String CFA_KEY = "code.refactor.agent";
+  private static final String CPA_KEY = "code.python.agent";
+  private static final String CBA_KEY = "code.bundler.agent";
 
-  public CodeRootAgent(AgentConfigsProvider configs) {
-    this.configs = checkNotNull(configs, "configs");
+  public CodeRootAgent(AgentConfigsProvider provider) {
+    this.provider = checkNotNull(provider, "provider");
   }
 
-  private final AgentConfigsProvider configs;
+  private final AgentConfigsProvider provider;
 
   @Override
   public SequentialAgent get() {
-    List<? extends BaseAgent> subAgents = subAgents(configs.get());
+    Map<String, AgentConfig> configs = provider.get();
+    LlmAgent generator = new LlmAgentProvider(configs.get(CPA_KEY)).get();
+    LoopAgent refiner = new CodeRefinementLoop(configs).get();
+    ParallelAgent translators = new CodeTranslationTeam(configs).get();
+    LlmAgent bundler = new LlmAgentProvider(AgentContext.build(configs.get(CBA_KEY))).get();
     return SequentialAgent.builder() //
-        .name("CodePipeline") //
+        .name("CodePolyglotSystem") //
         .description(DESC) //
-        .subAgents(subAgents) //
+        .subAgents(generator, refiner, translators, bundler) //
         .build();
-  }
-
-  private ImmutableList<? extends BaseAgent> subAgents(Map<String, AgentConfig> configs) {
-    List<String> keys = asList(CWA_KEY, CRA_KEY, CFA_KEY);
-    AgentTool tool = new CodeExecutionToolProvider(configs).get();
-    return copyOf(transform(keys, k -> subAgent(configs.get(k), tool)));
-  }
-
-  private LlmAgent subAgent(AgentConfig config, AgentTool tool) {
-    AgentContext ctx = agentCtx(config, asList(tool));
-    return new LlmAgentProvider(ctx).get();
-  }
-
-  private AgentContext agentCtx(AgentConfig config, List<? extends BaseTool> tools) {
-    return AgentContext.builder() //
-        .withConfig(config) //
-        .withTools(tools) //
-        .build(); //
   }
 }
