@@ -20,7 +20,7 @@ import com.svetanis.agents.base.tools.SearchAgentToolProvider;
 
 import jakarta.inject.Provider;
 
-public class SearchTeam implements Provider<ParallelAgent> {
+public class TripSearchTeam implements Provider<ParallelAgent> {
 
   private static final String DESC = """
       The ParallelSearchTeam agent searches flights,
@@ -32,7 +32,7 @@ public class SearchTeam implements Provider<ParallelAgent> {
   private static final String TAA_KEY = "traveler.activity.agent";
   private static final String TDA_KEY = "traveler.dining.agent";
 
-  public SearchTeam(Map<String, AgentConfig> configs) {
+  public TripSearchTeam(Map<String, AgentConfig> configs) {
     this.configs = copyOf(configs);
   }
 

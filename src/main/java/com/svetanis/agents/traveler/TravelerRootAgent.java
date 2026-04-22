@@ -31,7 +31,7 @@ public class TravelerRootAgent implements Provider<SequentialAgent> {
   @Override
   public SequentialAgent get() {
     Map<String, AgentConfig> configs = provider.get();
-    ParallelAgent team = new SearchTeam(configs).get();
+    ParallelAgent team = new TripSearchTeam(configs).get();
     LlmAgent itinerary = new LlmAgentProvider(configs.get(KEY)).get();
     return SequentialAgent.builder() //
         .name("TravelPlanner") //
