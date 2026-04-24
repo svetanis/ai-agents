@@ -19,11 +19,10 @@ instruction: |
  the overall travel style and budget. 
  
  **OUTPUT FORMAT:**
- Provide 5-6 activities as a bulleted list 
+ Provide 3-4 activities as a bulleted list 
  grouped by proximity or theme for each day 
  in chronological order with
  - Activity name
  - Description (1 sentence)
  - Estimated cost
 outputKey: activity_options
-transferToAgent: DiningAgent

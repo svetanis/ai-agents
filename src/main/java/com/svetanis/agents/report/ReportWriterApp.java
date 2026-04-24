@@ -12,7 +12,7 @@ import com.svetanis.agents.base.AgentConfigsProvider;
  * Create a report on self-driving vehicles
  * 
  * run command:
- * mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.report.ReportWriterApp
+ * mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.report.ReportWriterApp
  */
 
 public final class ReportWriterApp {

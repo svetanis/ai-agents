@@ -1,4 +1,4 @@
-name: RefinerCodeAgent
+name: CodeRefinerAgent
 model: gemini-2.5-flash
 description: |
  Refactors generated code based on

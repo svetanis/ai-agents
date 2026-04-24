@@ -14,12 +14,13 @@ instruction: |
  - Comfortable daily food budget
 
  **Recommended Activities:**
- {activity_options} 
+ {activity_options?} 
   
  **TASK:**
  Use the `google_maps` tool to find dining places 
- that are near by the day's activities and fit in
- the overall travel style and budget. 
+ that are near by the day's activities if provided
+ or search based on requested destination
+ and fit in the overall travel style and budget. 
   
  **OUTPUT FORMAT:**
  Provide 2-3 places as a bulleted list 
@@ -28,4 +29,3 @@ instruction: |
  - location
  - link to google maps
 outputKey: dining_options
-transferToAgent: ItineraryAgent

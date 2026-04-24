@@ -24,12 +24,12 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
 
   private static final String DESC = """
       The ParallelSearchTeam agent searches flights,
-      accomodations, dining and activity options concurrently.
+      accommodations, dining and activity options concurrently.
       """;
 
   private static final String TFA_KEY = "traveler.flight.agent";
-  private static final String THA_KEY = "traveler.accomodation.agent";
-  private static final String TAA_KEY = "traveler.activity.agent";
+  private static final String TAA_KEY = "traveler.accommodation.agent";
+  private static final String TEA_KEY = "traveler.activity.agent";
   private static final String TDA_KEY = "traveler.dining.agent";
 
   public TripSearchTeam(Map<String, AgentConfig> configs) {
@@ -44,29 +44,29 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
     AgentTool search = new SearchAgentToolProvider(configs).get();
     LlmAgent flights = llmAgent(TFA_KEY, asList(search));
     SequentialAgent experiences = experiences(asList(search, maps));
-    LlmAgent accomodation = llmAgent(THA_KEY, asList(maps));
+    LlmAgent accommodation = llmAgent(TAA_KEY, asList(maps));
     return ParallelAgent.builder() //
         .name("ParallelSearchTeam") //
         .description(DESC) //
-        .subAgents(flights, experiences, accomodation) //
+        .subAgents(flights, experiences, accommodation) //
         .build();
   }
 
   private SequentialAgent experiences(List<BaseTool> tools) {
-    LlmAgent activities = llmAgent(TAA_KEY, tools);
+    LlmAgent activities = llmAgent(TEA_KEY, tools);
     LlmAgent dining = llmAgent(TDA_KEY, tools);
-    return SequentialAgent.builder()//
-        .name("Activities and Dining")//
-        .subAgents(activities, dining)//
+    return SequentialAgent.builder() //
+        .name("Activities and Dining") //
+        .subAgents(activities, dining) //
         .build();
   }
 
   private LlmAgent llmAgent(String key, List<BaseTool> tools) {
     AgentConfig config = configs.get(key);
-    AgentContext ctx = AgentContext.builder()//
-        .withConfig(config)//
-        .withTools(tools)//
-        .build();//
+    AgentContext ctx = AgentContext.builder() //
+        .withConfig(config) //
+        .withTools(tools) //
+        .build(); //
     return new LlmAgentProvider(ctx).get();
   }
 }

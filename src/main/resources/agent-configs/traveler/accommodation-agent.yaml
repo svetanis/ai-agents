@@ -33,4 +33,3 @@ instruction: |
  - Key amenities 
  - Link to google maps
 outputKey: accomodation_options
-transferToAgent: ItineraryAgent

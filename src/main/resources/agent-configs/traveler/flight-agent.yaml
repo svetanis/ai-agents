@@ -39,4 +39,3 @@ instruction: |
  - Price range
  - Flight duration
 outputKey: flight_options
-transferToAgent: ItineraryAgent
