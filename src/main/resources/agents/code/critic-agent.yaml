@@ -19,8 +19,8 @@ instruction: |
  
  **WORKFLOW:**
  1. Correctness: Check correctness against the problem statement or original code
- 2. Readability: Does the code follow ${target_language} style guidelines?
- 5. Best Practices: Does the code follow common ${target_language} best practices?
+ 2. Readability: Does the code follow the requested language style guidelines?
+ 5. Best Practices: Does the code follow common the requested language best practices?
 
  **OUTPUT FORMAT:**
  - Your feedback as a bulleted list (critical to low)
