@@ -8,6 +8,5 @@ flight preferences: Delta Airlines, overnight non-stop flight, aisle seats, no l
 activity preferences: history, museums, galleries, cathedrals, castles.
 dining preferences: good Italian food
 accomodation preferences: single room, private bathroom, free wifi, no breakfast, 
-near railway stations up to USD 100 per night
+near railway stations up to USD 150 per night
 total budget up to USD 2K.
-

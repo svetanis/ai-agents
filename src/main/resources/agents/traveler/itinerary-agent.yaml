@@ -10,16 +10,16 @@ instruction: |
  by combining the search results below
 
  **Available Flights:**
- {flight_options} 
+ {flight_options?} 
 
  **Available Accomodations:**
- {accomodation_options} 
+ {accomodation_options?} 
 
  **Recommended Activities:**
- {activity_options} 
+ {activity_options?} 
 
  **Recommended Dining:**
- {dining_options} 
+ {dining_options?} 
     
  **OUTPUT FORMAT:**
  - Recommend the TOP option from each category (flights, hotel)

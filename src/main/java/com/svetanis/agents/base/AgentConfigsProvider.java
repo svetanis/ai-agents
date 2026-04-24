@@ -45,7 +45,6 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   public AgentConfigsProvider(YamlSerializer yaml, Optional<String> subdir) {
     this.yaml = checkNotNull(yaml, "yaml");
     this.subdir = subdir;
-
   }
 
   private final YamlSerializer yaml;

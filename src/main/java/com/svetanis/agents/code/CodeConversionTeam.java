@@ -23,19 +23,16 @@ import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
-public class CodeTranslationTeam implements Provider<ParallelAgent> {
+public class CodeConversionTeam implements Provider<ParallelAgent> {
 
   private static final String SEQ_DESC = "Runs code translation pipeline with sanity check";
   private static final String PAR_DESC = "Runs code translation to multiple languages simultaneously";
 
-  private static final String CPJ_KEY = "code.python.java";
-  private static final String CPG_KEY = "code.python.go";
-  private static final String CPT_KEY = "code.python.typescript";
-
-  private static final String CRA_KEY = "code.review.agent";
+  private static final String CTA_KEY = "code.converter.agent";
+  private static final String CCA_KEY = "code.critic.agent";
   private static final String CFA_KEY = "code.refactor.agent";
 
-  public CodeTranslationTeam(Map<String, AgentConfig> configs) {
+  public CodeConversionTeam(Map<String, AgentConfig> configs) {
     this.configs = ImmutableMap.copyOf(configs);
   }
 
@@ -52,7 +49,7 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
   }
 
   private ImmutableList<SequentialAgent> subAgents() {
-    List<String> keys = asList(CPJ_KEY); // , CPG_KEY, CPT_KEY);
+    List<String> keys = asList(CTA_KEY); // , CPG_KEY, CPT_KEY);
     return copyOf(transform(keys, k -> translationPipeline(k)));
   }
 
@@ -60,13 +57,13 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
   private SequentialAgent translationPipeline(String key) {
     // each pipeline has its own execution environment
     AgentTool tool = new CodeExecutionToolProvider(configs).get();
-    LlmAgent translate = new LlmAgentProvider(AgentContext.build(configs.get(key), tool)).get();
-    LlmAgent review = llmAgent(CRA_KEY, tool);
+    LlmAgent convert = new LlmAgentProvider(AgentContext.build(configs.get(key), tool)).get();
+    LlmAgent review = llmAgent(CCA_KEY, tool);
     LlmAgent refactor = llmAgent(CFA_KEY, tool);
     return SequentialAgent.builder()//
         .name("TranslationPipeline")//
         .description(SEQ_DESC)//
-        .subAgents(translate, review, refactor)//
+        .subAgents(convert, review, refactor)//
         .build();
   }
 
@@ -78,7 +75,7 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
         .name(config.getName())//
         .model(config.getModel())//
         .description(config.getDescription())//
-        .instruction(config.getInstruction().replace("lang_code", outputKey))//
+        .instruction(config.getInstruction().replace("${target_language}", outputKey))//
         .outputKey(outputKey)//
         .tools(tool)//
         .generateContentConfig(new DefaultContentConfigProvider().get())//

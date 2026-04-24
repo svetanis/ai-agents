@@ -17,11 +17,10 @@ import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
-public class CodeRootAgent implements Provider<SequentialAgent> {
+public class CodeRootAgent implements Provider<LlmAgent> {
 
-  private static final String DESC = "Generates Python code and translates it to multiple languages";
-
-  private static final String CPA_KEY = "code.python.agent";
+  private static final String CRA_KEY = "code.root.agent";
+  private static final String CGA_KEY = "code.generator.agent";
   private static final String CBA_KEY = "code.bundler.agent";
 
   public CodeRootAgent(AgentConfigsProvider provider) {
@@ -31,19 +30,47 @@ public class CodeRootAgent implements Provider<SequentialAgent> {
   private final AgentConfigsProvider provider;
 
   @Override
-  public SequentialAgent get() {
+  public LlmAgent get() {
     Map<String, AgentConfig> configs = provider.get();
-    // shared execution environment for python code generator and refiner
-    AgentTool tool = new CodeExecutionToolProvider(configs).get();
-    AgentContext ctx = AgentContext.build(configs.get(CPA_KEY), tool);
-    LlmAgent generator = new LlmAgentProvider(ctx).get();
-    LoopAgent refiner = new CodeRefinementLoop(tool, configs).get();
-    ParallelAgent translators = new CodeTranslationTeam(configs).get();
+    AgentTool generator = AgentTool.create(codeGeneration(configs));
+    AgentTool converter = AgentTool.create(codeConversion(configs));
+    AgentTool fullLoop = AgentTool.create(fullLoop(configs));
+    AgentContext ctx = AgentContext.builder()//
+        .withConfig(configs.get(CRA_KEY))//
+        .withTools(generator, converter, fullLoop)//
+        .build();//
+    return new LlmAgentProvider(ctx).get();
+  }
+
+  private SequentialAgent fullLoop(Map<String, AgentConfig> configs) {
+    SequentialAgent generator = codeGeneration(configs);
+    SequentialAgent converter = codeConversion(configs);
+    return SequentialAgent.builder() //
+        .name("FullLoopWorkflow") //
+        .description("Generates code and translates it to multiple languages") //
+        .subAgents(generator, converter) //
+        .build();
+  }
+
+  private SequentialAgent codeConversion(Map<String, AgentConfig> configs) {
+    ParallelAgent converters = new CodeConversionTeam(configs).get();
     LlmAgent bundler = new LlmAgentProvider(AgentContext.build(configs.get(CBA_KEY))).get();
     return SequentialAgent.builder() //
-        .name("CodePolyglotSystem") //
-        .description(DESC) //
-        .subAgents(generator, refiner, translators, bundler) //
+        .name("ConvertBundleWorkflow") //
+        .description("Parallel code converter outputs aggregated by bundler ") //
+        .subAgents(converters, bundler) //
+        .build();
+  }
+
+  private SequentialAgent codeGeneration(Map<String, AgentConfig> configs) {
+    AgentTool tool = new CodeExecutionToolProvider(configs).get();
+    AgentContext ctx = AgentContext.build(configs.get(CGA_KEY), tool);
+    LlmAgent generator = new LlmAgentProvider(ctx).get();
+    LoopAgent refiner = new CodeRefinementLoop(tool, configs).get();
+    return SequentialAgent.builder() //
+        .name("GenerateRefineWorkflow") //
+        .description("Generates code with Refinement Loop") //
+        .subAgents(generator, refiner) //
         .build();
   }
 }

@@ -21,17 +21,17 @@ instruction: |
   For each language, provide a clear header and the 
   code enclosed in triple backticks.
 
-  **Python Code:**
-   {python_code} 
+  **INPUT:**
+  **${input_language} Code:** 
+  {${input_language}_code} 
 
- **JAVA Code:**
-  {java_code} 
-  
+  **${target_language} Code:** 
+  {${target_language}_code?} 
+
+    
   **OUTPUT FORMAT:**
   # [Language Name]
   ```[language-id]
   [Code Snippet]
   ```
-  Include languages strictly in the following order:
-  JAVA, PYTHON
 outputKey: code_report

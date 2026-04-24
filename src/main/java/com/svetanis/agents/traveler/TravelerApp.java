@@ -3,7 +3,7 @@ package com.svetanis.agents.traveler;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.multiagentpatterns.traveler.TravelerApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.traveler.TravelerApp
 
 public class TravelerApp {
 

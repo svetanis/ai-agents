@@ -27,5 +27,5 @@ instruction: |
  - name
  - location
  - link to google maps
-outputKey: dining_suggestions
+outputKey: dining_options
 transferToAgent: ItineraryAgent

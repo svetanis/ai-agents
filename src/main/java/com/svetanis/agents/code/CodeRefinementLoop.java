@@ -18,7 +18,7 @@ import jakarta.inject.Provider;
 
 public class CodeRefinementLoop implements Provider<LoopAgent> {
 
-  private static final String CAA_KEY = "code.analyse.agent";
+  private static final String CRA_KEY = "code.review.agent";
   private static final String CFA_KEY = "code.refiner.agent";
 
   private static final String DESC = """
@@ -35,7 +35,7 @@ public class CodeRefinementLoop implements Provider<LoopAgent> {
 
   @Override
   public LoopAgent get() {
-    LlmAgent review = new LlmAgentProvider(configs.get(CAA_KEY)).get();
+    LlmAgent review = new LlmAgentProvider(configs.get(CRA_KEY)).get();
     LlmAgent refiner = new LlmAgentProvider(agentCtx()).get();
     return LoopAgent.builder()//
         .name("CodeRefinementLoop") //
