@@ -8,7 +8,7 @@ instruction: |
  You are a Code Translation Specialist.
   
  **GOAL:**
- Translate source code from ${input_language} to ${target_language} 
+ Translate source code from one programming language to another
  while maintaining identical logic, efficiency, and functionality.
 
  **Code to Translate:**
