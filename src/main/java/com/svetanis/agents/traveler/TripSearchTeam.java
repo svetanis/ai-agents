@@ -1,9 +1,7 @@
 package com.svetanis.agents.traveler;
 
 import static com.google.common.collect.ImmutableMap.copyOf;
-import static java.util.Arrays.asList;
 
-import java.util.List;
 import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
@@ -22,7 +20,8 @@ import jakarta.inject.Provider;
 
 public class TripSearchTeam implements Provider<ParallelAgent> {
 
-  private static final String DESC = """
+  private static final String DESC =
+      """
       The ParallelSearchTeam agent searches flights,
       accommodations, dining and activity options concurrently.
       """;
@@ -42,9 +41,9 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
   public ParallelAgent get() {
     AgentTool maps = new MapsAgentToolProvider(configs).get();
     AgentTool search = new SearchAgentToolProvider(configs).get();
-    LlmAgent flights = llmAgent(TFA_KEY, asList(search));
-    SequentialAgent experiences = experiences(asList(search, maps));
-    LlmAgent accommodation = llmAgent(TAA_KEY, asList(maps));
+    LlmAgent flights = llmAgent(TFA_KEY, search);
+    SequentialAgent experiences = experiences();
+    LlmAgent accommodation = llmAgent(TAA_KEY, maps);
     return ParallelAgent.builder() //
         .name("ParallelSearchTeam") //
         .description(DESC) //
@@ -52,21 +51,24 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
         .build();
   }
 
-  private SequentialAgent experiences(List<BaseTool> tools) {
-    LlmAgent activities = llmAgent(TEA_KEY, tools);
-    LlmAgent dining = llmAgent(TDA_KEY, tools);
+  private SequentialAgent experiences() {
+    AgentTool maps = new MapsAgentToolProvider(configs).get();
+    AgentTool search = new SearchAgentToolProvider(configs).get();
+    LlmAgent activities = llmAgent(TEA_KEY, search);
+    LlmAgent dining = llmAgent(TDA_KEY, maps);
     return SequentialAgent.builder() //
         .name("Activities and Dining") //
         .subAgents(activities, dining) //
         .build();
   }
 
-  private LlmAgent llmAgent(String key, List<BaseTool> tools) {
+  private LlmAgent llmAgent(String key, BaseTool... tools) {
     AgentConfig config = configs.get(key);
-    AgentContext ctx = AgentContext.builder() //
-        .withConfig(config) //
-        .withTools(tools) //
-        .build(); //
+    AgentContext ctx =
+        AgentContext.builder() //
+            .withConfig(config) //
+            .withTools(tools) //
+            .build(); //
     return new LlmAgentProvider(ctx).get();
   }
 }

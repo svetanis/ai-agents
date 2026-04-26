@@ -40,7 +40,7 @@ public class TravelerRootAgent implements Provider<LlmAgent> {
     LlmAgent itinerary = new LlmAgentProvider(configs.get(TIA_KEY)).get();
     return SequentialAgent.builder() //
         .name("TripAssistantWorkflow") //
-        .description("Travel Planning Agent with parallel search") //
+        //.description("Travel Planning Agent with parallel search") //
         .subAgents(team, itinerary) //
         .build();
   }
