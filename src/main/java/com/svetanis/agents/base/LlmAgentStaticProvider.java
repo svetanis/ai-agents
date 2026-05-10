@@ -3,6 +3,8 @@ package com.svetanis.agents.base;
 import static com.google.adk.agents.LlmAgent.IncludeContents.DEFAULT;
 import static com.google.adk.agents.LlmAgent.IncludeContents.valueOf;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static java.time.Duration.ofSeconds;
+import static java.util.Arrays.asList;
 
 import java.util.Optional;
 
@@ -10,21 +12,28 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.plugins.PluginManager;
 import com.google.common.base.CharMatcher;
 import com.google.genai.types.GenerateContentConfig;
+import com.svetanis.agents.plugins.RateLimitPlugin;
+import com.svetanis.agents.plugins.RetryPlugin;
 
 import io.reactivex.rxjava3.core.Maybe;
 import jakarta.inject.Provider;
 
-public class LlmAgentProvider implements Provider<LlmAgent> {
+public class LlmAgentStaticProvider implements Provider<LlmAgent> {
 
-  public LlmAgentProvider(AgentConfig config) {
+  public LlmAgentStaticProvider(AgentConfig config) {
     this(AgentContext.build(config));
   }
 
-  public LlmAgentProvider(AgentContext ctx) {
+  public LlmAgentStaticProvider(AgentContext ctx) {
     this.ctx = checkNotNull(ctx, "ctx");
   }
 
   private final AgentContext ctx;
+
+  private static final PluginManager SHARED_PLUGINS = new PluginManager(asList(
+      new RateLimitPlugin(5.0 / 60.0),
+      new RetryPlugin(3, ofSeconds(2))
+  ));
 
   @Override
   public LlmAgent get() {
@@ -40,21 +49,20 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     }
     if (config.getTransferToAgent().isPresent()) {
       String name = config.getTransferToAgent().get();
-      builder.afterAgentCallback(cc -> {
-        cc.eventActions().setTransferToAgent(name);
-        return Maybe.empty();
-      });
+      builder.afterAgentCallback(
+          cc -> {
+            cc.eventActions().setTransferToAgent(name);
+            return Maybe.empty();
+          });
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());
     builder.generateContentConfig(contentConfig(config.getContentConfig()));
 
-    if (ctx.getPlugins().isPresent()) {
-      PluginManager plugins = ctx.getPlugins().get();
-      builder.beforeModelCallback((ctx1, req) -> plugins.beforeModelCallback(ctx1, req));
-      builder.afterModelCallback((ctx1, res) -> plugins.afterModelCallback(ctx1, res));
-      builder.onModelErrorCallback((ctx1, req, err) -> plugins.onModelErrorCallback(ctx1, req.toBuilder(), err));
-    }
+    builder.beforeModelCallback((ctx1, req) -> SHARED_PLUGINS.beforeModelCallback(ctx1, req));
+    builder.afterModelCallback((ctx1, res) -> SHARED_PLUGINS.afterModelCallback(ctx1, res));
+    builder.onModelErrorCallback((ctx1, req, err) -> SHARED_PLUGINS.onModelErrorCallback(ctx1, req.toBuilder(), err));
+
     return builder.build();
   }
 

@@ -1,17 +1,15 @@
 package com.svetanis.agents.traveler;
 
-import static com.google.common.collect.ImmutableMap.copyOf;
-
-import java.util.Map;
+import static com.google.api.client.util.Preconditions.checkNotNull;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.ParallelAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
-import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentContext;
+import com.svetanis.agents.base.AppConfig;
 import com.svetanis.agents.base.LlmAgentProvider;
 import com.svetanis.agents.base.tools.MapsAgentToolProvider;
 import com.svetanis.agents.base.tools.SearchAgentToolProvider;
@@ -20,27 +18,26 @@ import jakarta.inject.Provider;
 
 public class TripSearchTeam implements Provider<ParallelAgent> {
 
-  private static final String DESC =
-      """
+  private static final String DESC = """
       The ParallelSearchTeam agent searches flights,
       accommodations, dining and activity options concurrently.
       """;
 
-  private static final String TFA_KEY = "traveler.flight.agent";
-  private static final String TAA_KEY = "traveler.accommodation.agent";
-  private static final String TEA_KEY = "traveler.activity.agent";
-  private static final String TDA_KEY = "traveler.dining.agent";
+  private static final String TFA_KEY = "traveler.flight";
+  private static final String TDA_KEY = "traveler.dining";
+  private static final String TEA_KEY = "traveler.activity";
+  private static final String TAA_KEY = "traveler.accommodation";
 
-  public TripSearchTeam(Map<String, AgentConfig> configs) {
-    this.configs = copyOf(configs);
+  public TripSearchTeam(AppConfig appConfig) {
+    this.appConfig = checkNotNull(appConfig, "appConfig");
   }
 
-  private final ImmutableMap<String, AgentConfig> configs;
+  private final AppConfig appConfig;
 
   @Override
   public ParallelAgent get() {
-    AgentTool maps = new MapsAgentToolProvider(configs).get();
-    AgentTool search = new SearchAgentToolProvider(configs).get();
+    AgentTool maps = new MapsAgentToolProvider(appConfig).get();
+    AgentTool search = new SearchAgentToolProvider(appConfig).get();
     LlmAgent flights = llmAgent(TFA_KEY, search);
     SequentialAgent experiences = experiences();
     LlmAgent accommodation = llmAgent(TAA_KEY, maps);
@@ -52,8 +49,8 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
   }
 
   private SequentialAgent experiences() {
-    AgentTool maps = new MapsAgentToolProvider(configs).get();
-    AgentTool search = new SearchAgentToolProvider(configs).get();
+    AgentTool maps = new MapsAgentToolProvider(appConfig).get();
+    AgentTool search = new SearchAgentToolProvider(appConfig).get();
     LlmAgent activities = llmAgent(TEA_KEY, search);
     LlmAgent dining = llmAgent(TDA_KEY, maps);
     return SequentialAgent.builder() //
@@ -63,12 +60,18 @@ public class TripSearchTeam implements Provider<ParallelAgent> {
   }
 
   private LlmAgent llmAgent(String key, BaseTool... tools) {
-    AgentConfig config = configs.get(key);
-    AgentContext ctx =
-        AgentContext.builder() //
-            .withConfig(config) //
-            .withTools(tools) //
-            .build(); //
+    AgentConfig config = agentConfig(key);
+    AgentContext ctx = AgentContext.builder() //
+        .withConfig(config) //
+        .withTools(tools) //
+        .withPlugins(appConfig.getPlugins())//
+        .build(); //
     return new LlmAgentProvider(ctx).get();
   }
+
+  private AgentConfig agentConfig(String key) {
+    String agentKey = appConfig.getProperties().get(key);
+    return appConfig.getAgentConfigs().get(agentKey);
+  }
+
 }

@@ -18,8 +18,8 @@ import com.google.common.io.ByteSource;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
-import com.svetanis.agents.base.utils.Files;
-import com.svetanis.agents.base.utils.Strings;
+import com.svetanis.agents.utils.Files;
+import com.svetanis.agents.utils.Strings;
 
 import jakarta.inject.Provider;
 

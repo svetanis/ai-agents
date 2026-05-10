@@ -1,4 +1,4 @@
-package com.svetanis.agents.base.utils;
+package com.svetanis.agents.utils;
 
 import java.nio.charset.Charset;
 

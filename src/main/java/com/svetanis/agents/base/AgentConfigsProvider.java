@@ -26,7 +26,7 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   private static final String CONFIG = "agent-configs";
   private static final String EXT = ".yaml";
 
-  private static final Logger log = LoggerFactory.getLogger(AgentConfigsProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AgentConfigsProvider.class);
 
   public AgentConfigsProvider() {
     this(new YamlSerializer());
@@ -44,13 +44,12 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
       Map<String, ByteSource> resources = classpathResources(CONFIG);
       ImmutableMap.Builder<String, AgentConfig> builder = ImmutableMap.builder();
       for (Map.Entry<String, ByteSource> entry : resources.entrySet()) {
-        System.out.println(entry.getKey());
         AgentConfig config = yaml.read(entry.getValue(), AgentConfig.class);
         builder.put(normalize(entry.getKey(), CONFIG), config);
       }
       ImmutableMap<String, AgentConfig> map = builder.build();
       String msg = "Loaded agent configurations [total = %s] from classpath directory -> %s";
-      log.info(String.format(msg, map.size(), CONFIG));
+      LOGGER.info(String.format(msg, map.size(), CONFIG));
       return map;
     } catch (JsonProcessingException e) { // Specific for YAML parsing errors
       throw new IllegalStateException("Failed to parse agent configuration YAML", e);
@@ -82,10 +81,10 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   }
 
   private String normalize(String s, String dir) {
-    return s.replaceFirst("^" + Pattern.quote(dir + "/"), "")
-        .replaceFirst(Pattern.quote(EXT) + "$", "")
-        .replace("-", ".")
-        .replace("_", ".")
+    return s.replaceFirst("^" + Pattern.quote(dir + "/"), "")//
+        .replaceFirst(Pattern.quote(EXT) + "$", "")//
+        .replace("-", ".")//
+        .replace("_", ".")//
         .replace("/", ".");
   }
 }

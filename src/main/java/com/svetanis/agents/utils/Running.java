@@ -17,7 +17,7 @@ import com.google.adk.sessions.Session;
 import com.google.adk.sessions.SessionKey;
 import com.google.genai.types.Content;
 import com.google.genai.types.Part;
-import com.svetanis.agents.zoo.plugins.RateLimitPlugin;
+import com.svetanis.agents.plugins.RateLimitPlugin;
 
 import io.reactivex.rxjava3.core.Flowable;
 
